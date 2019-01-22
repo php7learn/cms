@@ -1,20 +1,27 @@
 <?php
 require "config.php";
 
-class indexCtrl extends base
+class adminCtrl extends base
 {
 
     public function main()
     {
-        $this->setsubtemplates('index');
+        $this->setsubtemplates('admin');
         $act = isset($_GET['act']) ? $_GET['act'] : '';
+        
         switch ($act) {
-            case 'setadmin':
-                $this->setadmin();
+            case 'test':
+                $this->test();
                 break;
             default:
                 $this->index();
         }
+    }
+
+    function test()
+    {
+        $this->tpl->assign("test", "test");
+        $this->tpl->display("test.html");
     }
 
     function index()
@@ -22,6 +29,6 @@ class indexCtrl extends base
         echo "hello";
     }
 }
-$index = new indexCtrl();
+$index = new adminCtrl();
 $index->main();
 unset($index);

@@ -25,7 +25,7 @@ define("RIGHT_DELIMITER",'}>');
 define("CACHING",0);//开发阶段关闭cache
 define("CACHE_DIR",ROOT."/cache");
 define("CACHE_TIME",60*60*24*7);
-
+define("SITE_STATIC","/assets");
 
 
 require ROOT."/classes/base.core.php";
