@@ -1,0 +1,693 @@
+<html><head>
+  <meta charset="utf-8">
+  <title>layuiAdmin pro - 通用后台管理模板系统（单页面专业版）</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="//res.layui.com/layui/rc/css/layui.css?t=20181101-1" media="all">
+  <script src="https://hm.baidu.com/hm.js?d214947968792b839fd669a4decaaffc"></script><script>
+  /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
+  </script>
+<script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script><link id="layuicss-layer" rel="stylesheet" href="https://res.layui.com/layui/rc/css/modules/layer/default/layer.css?v=3.1.1" media="all"><link id="layuicss-layuiAdmin" rel="stylesheet" href="./dist/style/admin.css?v=1.2.1 pro-1" media="all"><link id="layuicss-skinlayimcss" rel="stylesheet" href="https://res.layui.com/layui/rc/css/modules/layim/layim.css?v=3.8.0" media="all"></head>
+<body layadmin-themealias="green-header" class="layui-layout-body">
+  <div id="LAY_app" class="layadmin-tabspage-none"><div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <!-- 头部区域 -->
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item layadmin-flexible" lay-unselect="">
+        <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+          <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+        </a>
+      </li>
+      <!--<li class="layui-nav-item layui-this layui-hide-xs layui-hide-sm layui-show-md-inline-block">
+        <a lay-href="" title="">
+          控制台
+        </a>
+      </li>-->
+      <li class="layui-nav-item layui-hide-xs" lay-unselect="">
+        <a href="http://www.layui.com/admin/" target="_blank" title="前台">
+          <i class="layui-icon layui-icon-website"></i>
+        </a>
+      </li>
+      <li class="layui-nav-item" lay-unselect="">
+        <a href="javascript:;" layadmin-event="refresh" title="刷新">
+          <i class="layui-icon layui-icon-refresh-3"></i>
+        </a>
+      </li>
+      <li class="layui-nav-item layui-hide-xs" lay-unselect="">
+        <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search" layadmin-event="serach" lay-action="template/search/keywords="> 
+      </li>
+    <span class="layui-nav-bar"></span></ul>
+    <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+      
+      <li class="layui-nav-item" lay-unselect="">
+        <a lay-href="app/message/" layadmin-event="message">
+          <i class="layui-icon layui-icon-notice"></i>
+          
+          <!-- 如果有新消息，则显示小圆点 -->
+          <script type="text/html" template="" lay-url="./json/message/new.js">
+          {{# if(d.data.newmsg){ }} 
+            <span class="layui-badge-dot"></span>
+          {{# } }}
+          </script>  <span class="layui-badge-dot"></span>  
+          
+        </a>
+      </li>
+      <li class="layui-nav-item layui-hide-xs" lay-unselect="">
+        <a href="javascript:;" layadmin-event="theme">
+          <i class="layui-icon layui-icon-theme"></i>
+        </a>
+      </li>
+      <li class="layui-nav-item layui-hide-xs" lay-unselect="">
+        <a href="javascript:;" layadmin-event="note">
+          <i class="layui-icon layui-icon-note"></i>
+        </a>
+      </li>
+      <li class="layui-nav-item layui-hide-xs" lay-unselect="">
+        <a href="javascript:;" layadmin-event="fullscreen">
+          <i class="layui-icon layui-icon-screen-full"></i>
+        </a>
+      </li>
+      <li class="layui-nav-item" lay-unselect="">
+        <script type="text/html" template="" lay-url="./json/user/session.js" lay-done="layui.element.render('nav', 'layadmin-layout-right');">
+          <a href="javascript:;">
+            <cite>{{ d.data.username }}</cite>
+          </a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info">基本资料</a></dd>
+            <dd><a lay-href="set/user/password">修改密码</a></dd>
+            <hr>
+            <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+          </dl>
+        </script> <a href="javascript:;"> <cite>贤心</cite> <span class="layui-nav-more"></span></a> <dl class="layui-nav-child"> <dd><a lay-href="set/user/info">基本资料</a></dd> <dd><a lay-href="set/user/password">修改密码</a></dd> <hr> <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd> </dl> 
+      </li>
+      
+      <li class="layui-nav-item layui-hide-xs" lay-unselect="">
+        <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>
+      </li>
+      <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect="">
+        <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
+      </li>
+    <span class="layui-nav-bar"></span></ul>
+  </div>
+  
+  <!-- 侧边菜单 -->
+  <div class="layui-side layui-side-menu">
+    <div class="layui-side-scroll">
+      <script type="text/html" template="" lay-url="./json/menu.js?v={{ layui.admin.v }}" lay-done="layui.element.render('nav', 'layadmin-system-side-menu');" id="TPL_layout">
+      
+        <div class="layui-logo" lay-href="">
+          <span>{{ layui.setter.name || 'layuiAdmin' }}</span>
+        </div>
+        
+        <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+        {{# 
+          var path =  layui.router().path
+          ,pathURL = layui.admin.correctRouter(path.join('/'))
+          ,dataName = layui.setter.response.dataName;
+          
+          layui.each(d[dataName], function(index, item){ 
+            var hasChildren = typeof item.list === 'object' && item.list.length > 0
+            ,classSelected = function(){
+              var match = path[0] == item.name || (index == 0 && !path[0]) 
+              || (item.jump && pathURL == layui.admin.correctRouter(item.jump)) || item.spread;
+              if(match){
+                return hasChildren ? 'layui-nav-itemed' : 'layui-this';
+              }
+              return '';
+            }
+            ,url = (item.jump && typeof item.jump === 'string') ? item.jump : item.name;
+        }}
+          <li data-name="{{ item.name || '' }}" data-jump="{{ item.jump || '' }}" class="layui-nav-item {{ classSelected() }}">
+            <a href="javascript:;" {{ hasChildren ? '' : 'lay-href="'+ url +'"' }} lay-tips="{{ item.title }}" lay-direction="2">
+              <i class="layui-icon {{ item.icon }}"></i>
+              <cite>{{ item.title }}</cite>
+            </a>
+            {{# if(hasChildren){ }}
+              <dl class="layui-nav-child">
+              {{# layui.each(item.list, function(index2, item2){ 
+                var hasChildren2 = typeof item2.list == 'object' && item2.list.length > 0
+                ,classSelected2 = function(){
+                  var match = (path[0] == item.name && path[1] == item2.name) 
+                  || (item2.jump && pathURL == layui.admin.correctRouter(item2.jump)) || item2.spread;
+                  if(match){
+                    return hasChildren2 ? 'layui-nav-itemed' : 'layui-this';
+                  }
+                  return '';
+                }
+                ,url2 = (item2.jump && typeof item2.jump === 'string') 
+                  ? item2.jump 
+                : [item.name, item2.name, ''].join('/');
+              }}
+                <dd  data-name="{{ item2.name || '' }}"  data-jump="{{ item2.jump || '' }}" 
+                {{ classSelected2() ? ('class="'+ classSelected2() +'"') : '' }}>
+                  <a href="javascript:;" {{ hasChildren2 ? '' : 'lay-href="'+ url2 +'"' }}>{{ item2.title }}</a>
+                  {{# if(hasChildren2){ }}
+                    <dl class="layui-nav-child">
+                      {{# layui.each(item2.list, function(index3, item3){ 
+                        var match = (path[0] == item.name && path[1] == item2.name && path[2] == item3.name) 
+                        || (item3.jump && pathURL == layui.admin.correctRouter(item3.jump))
+                        ,url3 = (item3.jump && typeof item3.jump === 'string') 
+                          ? item3.jump 
+                        : [item.name, item2.name, item3.name].join('/')
+                      }}
+                        <dd data-name="{{ item3.name || '' }}"  data-jump="{{ item3.jump || '' }}" 
+                        {{ match ? 'class="layui-this"' : '' }}>
+                          <a href="javascript:;" lay-href="{{ url3 }}" {{ item3.iframe ? 'lay-iframe="true"' : '' }}>{{ item3.title }}</a>
+                        </dd>
+                      {{# }); }}
+                    </dl>
+                  {{# } }}
+                </dd>
+            {{# }); }}
+            </dl>
+            {{# } }}
+          </li>
+        {{# }); }}
+        </ul>
+      </script> <div class="layui-logo" lay-href=""> <span>layuiAdmin Pro</span> </div> <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">  <li data-name="" data-jump="" class="layui-nav-item "> <a href="javascript:;" lay-tips="主页" lay-direction="2"> <i class="layui-icon layui-icon-home"></i> <cite>主页</cite> <span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="" data-jump="/"> <a href="javascript:;" lay-href="/">控制台</a>  </dd>  <dd data-name="homepage1" data-jump="home/homepage1"> <a href="javascript:;" lay-href="home/homepage1">主页一</a>  </dd>  <dd data-name="homepage2" data-jump="home/homepage2"> <a href="javascript:;" lay-href="home/homepage2">主页二</a>  </dd>  </dl>  </li>  <li data-name="component" data-jump="" class="layui-nav-item "> <a href="javascript:;" lay-tips="组件" lay-direction="2"> <i class="layui-icon layui-icon-component"></i> <cite>组件</cite> <span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="grid" data-jump=""> <a href="javascript:;">栅格<span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="list" data-jump=""> <a href="javascript:;" lay-href="component/grid/list">等比例列表排列</a> </dd>  <dd data-name="mobile" data-jump=""> <a href="javascript:;" lay-href="component/grid/mobile">按移动端排列</a> </dd>  <dd data-name="mobile-pc" data-jump=""> <a href="javascript:;" lay-href="component/grid/mobile-pc">移动桌面端组合</a> </dd>  <dd data-name="all" data-jump=""> <a href="javascript:;" lay-href="component/grid/all">全端复杂组合</a> </dd>  <dd data-name="stack" data-jump=""> <a href="javascript:;" lay-href="component/grid/stack">低于桌面堆叠排列</a> </dd>  <dd data-name="speed-dial" data-jump=""> <a href="javascript:;" lay-href="component/grid/speed-dial">九宫格</a> </dd>  </dl>  </dd>  <dd data-name="button" data-jump=""> <a href="javascript:;" lay-href="component/button/">按钮</a>  </dd>  <dd data-name="form" data-jump=""> <a href="javascript:;">表单<span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="element" data-jump=""> <a href="javascript:;" lay-href="component/form/element">表单元素</a> </dd>  <dd data-name="group" data-jump=""> <a href="javascript:;" lay-href="component/form/group">表单组合</a> </dd>  </dl>  </dd>  <dd data-name="nav" data-jump=""> <a href="javascript:;" lay-href="component/nav/">导航</a>  </dd>  <dd data-name="tabs" data-jump=""> <a href="javascript:;" lay-href="component/tabs/">选项卡</a>  </dd>  <dd data-name="progress" data-jump=""> <a href="javascript:;" lay-href="component/progress/">进度条</a>  </dd>  <dd data-name="panel" data-jump=""> <a href="javascript:;" lay-href="component/panel/">面板</a>  </dd>  <dd data-name="badge" data-jump=""> <a href="javascript:;" lay-href="component/badge/">徽章</a>  </dd>  <dd data-name="timeline" data-jump=""> <a href="javascript:;" lay-href="component/timeline/">时间线</a>  </dd>  <dd data-name="anim" data-jump=""> <a href="javascript:;" lay-href="component/anim/">动画</a>  </dd>  <dd data-name="auxiliar" data-jump=""> <a href="javascript:;" lay-href="component/auxiliar/">辅助</a>  </dd>  <dd data-name="layer" data-jump=""> <a href="javascript:;">通用弹层<span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="list" data-jump=""> <a href="javascript:;" lay-href="component/layer/list">功能演示</a> </dd>  <dd data-name="special-demo" data-jump=""> <a href="javascript:;" lay-href="component/layer/special-demo">特殊示例</a> </dd>  <dd data-name="theme" data-jump=""> <a href="javascript:;" lay-href="component/layer/theme">风格定制</a> </dd>  </dl>  </dd>  <dd data-name="laydate" data-jump=""> <a href="javascript:;">日期时间<span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="demo1" data-jump=""> <a href="javascript:;" lay-href="component/laydate/demo1">功能演示一</a> </dd>  <dd data-name="demo2" data-jump=""> <a href="javascript:;" lay-href="component/laydate/demo2">功能演示二</a> </dd>  <dd data-name="theme" data-jump=""> <a href="javascript:;" lay-href="component/laydate/theme">设定主题</a> </dd>  <dd data-name="special-demo" data-jump=""> <a href="javascript:;" lay-href="component/laydate/special-demo">特殊示例</a> </dd>  </dl>  </dd>  <dd data-name="table" data-jump=""> <a href="javascript:;">表格<span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="simple" data-jump=""> <a href="javascript:;" lay-href="component/table/simple">简单数据表格</a> </dd>  <dd data-name="auto" data-jump=""> <a href="javascript:;" lay-href="component/table/auto">列宽自动分配</a> </dd>  <dd data-name="data" data-jump=""> <a href="javascript:;" lay-href="component/table/data">赋值已知数据</a> </dd>  <dd data-name="tostatic" data-jump=""> <a href="javascript:;" lay-href="component/table/tostatic">转化静态表格</a> </dd>  <dd data-name="page" data-jump=""> <a href="javascript:;" lay-href="component/table/page">开启分页</a> </dd>  <dd data-name="resetPage" data-jump=""> <a href="javascript:;" lay-href="component/table/resetPage">自定义分页</a> </dd>  <dd data-name="toolbar" data-jump=""> <a href="javascript:;" lay-href="component/table/toolbar">开启头部工具栏</a> </dd>  <dd data-name="totalRow" data-jump=""> <a href="javascript:;" lay-href="component/table/totalRow">开启合计行</a> </dd>  <dd data-name="height" data-jump=""> <a href="javascript:;" lay-href="component/table/height">高度最大适应</a> </dd>  <dd data-name="checkbox" data-jump=""> <a href="javascript:;" lay-href="component/table/checkbox">开启复选框</a> </dd>  <dd data-name="radio" data-jump=""> <a href="javascript:;" lay-href="component/table/radio">开启单选框</a> </dd>  <dd data-name="cellEdit" data-jump=""> <a href="javascript:;" lay-href="component/table/cellEdit">开启单元格编辑</a> </dd>  <dd data-name="form" data-jump=""> <a href="javascript:;" lay-href="component/table/form">加入表单元素</a> </dd>  <dd data-name="style" data-jump=""> <a href="javascript:;" lay-href="component/table/style">设置单元格样式</a> </dd>  <dd data-name="fixed" data-jump=""> <a href="javascript:;" lay-href="component/table/fixed">固定列</a> </dd>  <dd data-name="operate" data-jump=""> <a href="javascript:;" lay-href="component/table/operate">数据操作</a> </dd>  <dd data-name="parseData" data-jump=""> <a href="javascript:;" lay-href="component/table/parseData">解析任意数据格式</a> </dd>  <dd data-name="onrow" data-jump=""> <a href="javascript:;" lay-href="component/table/onrow">监听行事件</a> </dd>  <dd data-name="reload" data-jump=""> <a href="javascript:;" lay-href="component/table/reload">数据表格的重载</a> </dd>  <dd data-name="initSort" data-jump=""> <a href="javascript:;" lay-href="component/table/initSort">设置初始排序</a> </dd>  <dd data-name="cellEvent" data-jump=""> <a href="javascript:;" lay-href="component/table/cellEvent">监听单元格事件</a> </dd>  <dd data-name="thead" data-jump=""> <a href="javascript:;" lay-href="component/table/thead">复杂表头</a> </dd>  </dl>  </dd>  <dd data-name="laypage" data-jump=""> <a href="javascript:;">分页<span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="demo1" data-jump=""> <a href="javascript:;" lay-href="component/laypage/demo1">功能演示一</a> </dd>  <dd data-name="demo2" data-jump=""> <a href="javascript:;" lay-href="component/laypage/demo2">功能演示二</a> </dd>  </dl>  </dd>  <dd data-name="upload" data-jump=""> <a href="javascript:;">上传<span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="demo1" data-jump=""> <a href="javascript:;" lay-href="component/upload/demo1">功能演示一</a> </dd>  <dd data-name="demo2" data-jump=""> <a href="javascript:;" lay-href="component/upload/demo2">功能演示二</a> </dd>  </dl>  </dd>  <dd data-name="colorpicker" data-jump=""> <a href="javascript:;" lay-href="component/colorpicker/">颜色选择器</a>  </dd>  <dd data-name="slider" data-jump=""> <a href="javascript:;" lay-href="component/slider/">滑块组件</a>  </dd>  <dd data-name="rate" data-jump=""> <a href="javascript:;" lay-href="component/rate/">评分</a>  </dd>  <dd data-name="carousel" data-jump=""> <a href="javascript:;" lay-href="component/carousel/">轮播</a>  </dd>  <dd data-name="flow" data-jump=""> <a href="javascript:;" lay-href="component/flow/">流加载</a>  </dd>  <dd data-name="util" data-jump=""> <a href="javascript:;" lay-href="component/util/">工具</a>  </dd>  <dd data-name="code" data-jump=""> <a href="javascript:;" lay-href="component/code/">代码修饰</a>  </dd>  <dd data-name="layim" data-jump="senior/im/" class="layui-this"> <a href="javascript:;" lay-href="senior/im/">即时聊天</a>  </dd>  </dl>  </li>  <li data-name="template" data-jump="" class="layui-nav-item "> <a href="javascript:;" lay-tips="页面" lay-direction="2"> <i class="layui-icon layui-icon-template"></i> <cite>页面</cite> <span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="personalpage" data-jump="template/personalpage"> <a href="javascript:;" lay-href="template/personalpage">个人主页</a>  </dd>  <dd data-name="addresslist" data-jump="template/addresslist"> <a href="javascript:;" lay-href="template/addresslist">通讯录</a>  </dd>  <dd data-name="caller" data-jump="template/caller"> <a href="javascript:;" lay-href="template/caller">客户列表</a>  </dd>  <dd data-name="goodslist" data-jump="template/goodslist"> <a href="javascript:;" lay-href="template/goodslist">商品列表</a>  </dd>  <dd data-name="msgboard" data-jump="template/msgboard"> <a href="javascript:;" lay-href="template/msgboard">留言板</a>  </dd>  <dd data-name="search" data-jump="template/search"> <a href="javascript:;" lay-href="template/search">搜索结果</a>  </dd>  <dd data-name="reg" data-jump="user/reg"> <a href="javascript:;" lay-href="user/reg">注册</a>  </dd>  <dd data-name="login" data-jump="user/login"> <a href="javascript:;" lay-href="user/login">登入</a>  </dd>  <dd data-name="forget" data-jump="user/forget"> <a href="javascript:;" lay-href="user/forget">忘记密码</a>  </dd>  <dd data-name="404" data-jump="template/tips/404"> <a href="javascript:;" lay-href="template/tips/404">404</a>  </dd>  <dd data-name="error" data-jump="template/tips/error"> <a href="javascript:;" lay-href="template/tips/error">错误提示</a>  </dd>  <dd data-name="" data-jump="" class="layui-nav-itemed"> <a href="javascript:;">内嵌页面<span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="" data-jump="/iframe/link/baidu"> <a href="javascript:;" lay-href="/iframe/link/baidu">百度一下</a> </dd>  <dd data-name="" data-jump="/iframe/link/layui"> <a href="javascript:;" lay-href="/iframe/link/layui">layui官网</a> </dd>  <dd data-name="" data-jump="/iframe/link/layuiAdmin"> <a href="javascript:;" lay-href="/iframe/link/layuiAdmin">layuiAdmin官网</a> </dd>  </dl>  </dd>  </dl>  </li>  <li data-name="app" data-jump="" class="layui-nav-item "> <a href="javascript:;" lay-tips="应用" lay-direction="2"> <i class="layui-icon layui-icon-app"></i> <cite>应用</cite> <span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="content" data-jump=""> <a href="javascript:;">内容系统<span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="list" data-jump=""> <a href="javascript:;" lay-href="app/content/list">文章列表</a> </dd>  <dd data-name="tags" data-jump=""> <a href="javascript:;" lay-href="app/content/tags">分类管理</a> </dd>  <dd data-name="comment" data-jump=""> <a href="javascript:;" lay-href="app/content/comment">评论管理</a> </dd>  </dl>  </dd>  <dd data-name="forum" data-jump=""> <a href="javascript:;">社区系统<span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="list" data-jump=""> <a href="javascript:;" lay-href="app/forum/list">帖子列表</a> </dd>  <dd data-name="replys" data-jump=""> <a href="javascript:;" lay-href="app/forum/replys">回帖列表</a> </dd>  </dl>  </dd>  <dd data-name="message" data-jump=""> <a href="javascript:;" lay-href="app/message/">消息中心</a>  </dd>  <dd data-name="workorder" data-jump="app/workorder/list"> <a href="javascript:;" lay-href="app/workorder/list">工单系统</a>  </dd>  </dl>  </li>  <li data-name="senior" data-jump="" class="layui-nav-item layui-nav-itemed"> <a href="javascript:;" lay-tips="高级" lay-direction="2"> <i class="layui-icon layui-icon-senior"></i> <cite>高级</cite> <span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="im" data-jump="" class="layui-this"> <a href="javascript:;" lay-href="senior/im/">通讯系统</a>  </dd>  <dd data-name="echarts" data-jump=""> <a href="javascript:;">Echarts集成<span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="line" data-jump=""> <a href="javascript:;" lay-href="senior/echarts/line">折线图</a> </dd>  <dd data-name="bar" data-jump=""> <a href="javascript:;" lay-href="senior/echarts/bar">柱状图</a> </dd>  <dd data-name="map" data-jump=""> <a href="javascript:;" lay-href="senior/echarts/map">地图</a> </dd>  </dl>  </dd>  </dl>  </li>  <li data-name="user" data-jump="" class="layui-nav-item "> <a href="javascript:;" lay-tips="用户" lay-direction="2"> <i class="layui-icon layui-icon-user"></i> <cite>用户</cite> <span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="user" data-jump="user/user/list"> <a href="javascript:;" lay-href="user/user/list">网站用户</a>  </dd>  <dd data-name="administrators-list" data-jump="user/administrators/list"> <a href="javascript:;" lay-href="user/administrators/list">后台管理员</a>  </dd>  <dd data-name="administrators-rule" data-jump="user/administrators/role"> <a href="javascript:;" lay-href="user/administrators/role">角色管理</a>  </dd>  </dl>  </li>  <li data-name="set" data-jump="" class="layui-nav-item "> <a href="javascript:;" lay-tips="设置" lay-direction="2"> <i class="layui-icon layui-icon-set"></i> <cite>设置</cite> <span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="system" data-jump="" class="layui-nav-itemed"> <a href="javascript:;">系统设置<span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="website" data-jump=""> <a href="javascript:;" lay-href="set/system/website">网站设置</a> </dd>  <dd data-name="email" data-jump=""> <a href="javascript:;" lay-href="set/system/email">邮件服务</a> </dd>  </dl>  </dd>  <dd data-name="user" data-jump="" class="layui-nav-itemed"> <a href="javascript:;">我的设置<span class="layui-nav-more"></span></a>  <dl class="layui-nav-child">  <dd data-name="info" data-jump=""> <a href="javascript:;" lay-href="set/user/info">基本资料</a> </dd>  <dd data-name="password" data-jump=""> <a href="javascript:;" lay-href="set/user/password">修改密码</a> </dd>  </dl>  </dd>  </dl>  </li>  <li data-name="get" data-jump="system/get" class="layui-nav-item "> <a href="javascript:;" lay-href="system/get" lay-tips="授权" lay-direction="2"> <i class="layui-icon layui-icon-auz"></i> <cite>授权</cite> </a>  </li>  <span class="layui-nav-bar"></span></ul> 
+    </div>
+  </div>
+  
+
+  <!-- 页面标签 -->
+  <script type="text/html" template="" lay-done="layui.element.render('nav', 'layadmin-pagetabs-nav')">
+    {{# if(layui.setter.pageTabs){ }}
+    <div class="layadmin-pagetabs" id="LAY_app_tabs">
+      <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
+      <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
+      <div class="layui-icon layadmin-tabs-control layui-icon-down">
+        <ul class="layui-nav layadmin-tabs-select" lay-filter="layadmin-pagetabs-nav">
+          <li class="layui-nav-item" lay-unselect>
+            <a href="javascript:;"></a>
+            <dl class="layui-nav-child layui-anim-fadein">
+              <dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
+              <dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
+              <dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
+            </dl>
+          </li>
+        </ul>
+      </div>
+      <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+        <ul class="layui-tab-title" id="LAY_app_tabsheader">
+          <li lay-id="/"><i class="layui-icon layui-icon-home"></i></li>
+        </ul>
+      </div>
+    </div>
+    {{# } }}
+  </script>  
+  
+  
+  <!-- 主体内容 -->
+  <div class="layui-body" id="LAY_app_body">
+    <div class="layadmin-tabsbody-item layui-show"><div class="layui-card layadmin-header">
+  <div class="layui-breadcrumb" lay-filter="breadcrumb" style="visibility: visible;">
+    <a lay-href="">主页</a><span lay-separator="">/</span>
+    <a><cite>高级</cite></a><span lay-separator="">/</span>
+    <a><cite>通讯系统</cite></a><span lay-separator="">/</span>
+    <a><cite>社交聊天</cite></a>
+  </div>
+</div><div class="layui-fluid">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md12">
+      <div class="layui-card">
+        <div class="layui-card-header">面板外的操作示例</div>
+        <div class="layui-card-body">
+          
+          <div class="layui-btn-container LAY-senior-im-chat-demo">
+            <button class="layui-btn" data-type="chat">自定义会话</button>
+            <button class="layui-btn" data-type="message">接受好友的消息</button>
+            <button class="layui-btn" data-type="messageAudio">接受音频消息</button>
+            <button class="layui-btn" data-type="messageVideo">接受视频消息</button>
+            <button class="layui-btn" data-type="messageTemp">接受临时会话消息</button>
+            
+            <br>
+            
+            <button class="layui-btn" data-type="add">申请好友</button>
+            <button class="layui-btn" data-type="addqun">申请加群</button>
+            <button class="layui-btn" data-type="addFriend">同意好友</button>
+            <button class="layui-btn" data-type="addGroup">增加群组到主面板</button>
+            <button class="layui-btn" data-type="removeFriend">删除主面板好友</button>
+            <button class="layui-btn" data-type="removeGroup">删除主面板群组</button>
+            
+            <br>
+            <button class="layui-btn" data-type="setGray">置灰离线好友</button>
+            <button class="layui-btn" data-type="unGray">取消好友置灰</button>
+            
+            <button class="layui-btn" data-type="kefu1">在线客服一</button>
+            <button class="layui-btn" data-type="kefu2">在线客服二</button>
+            
+            <button class="layui-btn" data-type="mobile">移动端版本</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div><script>
+layui.use(['admin', 'layim'], function(){
+  var $ = layui.$
+  ,admin = layui.admin
+  ,element = layui.element
+  ,router = layui.router();
+
+  
+  var layim = layui.layim;
+  
+  //演示自动回复
+  var autoReplay = [
+    '您好，我现在有事不在，一会再和您联系。', 
+    '你没发错吧？face[微笑] ',
+    '洗澡中，请勿打扰，偷窥请购票，个体四十，团体八折，订票电话：一般人我不告诉他！face[哈哈] ',
+    '你好，我是主人的美女秘书，有什么事就跟我说吧，等他回来我会转告他的。face[心] face[心] face[心] ',
+    'face[威武] face[威武] face[威武] face[威武] ',
+    '<（@￣︶￣@）>',
+    '你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。',
+    'face[黑线]  你慢慢说，别急……',
+    '(*^__^*) face[嘻嘻] ，是贤心吗？'
+  ];
+  
+  //基础配置
+  layim.config({
+    //初始化接口
+    init: {
+      url: './json/layim/getList.js'
+      ,data: {}
+    }
+    //查看群员接口
+    ,members: {
+      url: './json/layim/getMembers.js'
+      ,data: {}
+    }
+    
+    ,uploadImage: {
+      url: '' //（返回的数据格式见下文）
+      ,type: '' //默认post
+    }
+    ,uploadFile: {
+      url: '' //（返回的数据格式见下文）
+      ,type: '' //默认post
+    }
+    
+    ,isAudio: true //开启聊天工具栏音频
+    ,isVideo: true //开启聊天工具栏视频
+    
+    //扩展工具栏
+    ,tool: [{
+      alias: 'code'
+      ,title: '代码'
+      ,icon: '&#xe64e;'
+    }]
+    
+    //,brief: true //是否简约模式（若开启则不显示主面板）
+    
+    //,title: 'WebIM' //自定义主面板最小化时的标题
+    //,right: '100px' //主面板相对浏览器右侧距离
+    //,minRight: '90px' //聊天面板最小化时相对浏览器右侧距离
+    ,initSkin: '3.jpg' //1-5 设置初始背景
+    //,skin: ['aaa.jpg'] //新增皮肤
+    //,isfriend: false //是否开启好友
+    //,isgroup: false //是否开启群组
+    //,min: true //是否始终最小化主面板，默认false
+    //,notice: true //是否开启桌面消息提醒，默认false
+    //,voice: false //声音提醒，默认开启，声音文件为：default.mp3
+    
+    ,msgbox: '/layim/demo/msgbox.html' //消息盒子页面地址，若不开启，剔除该项即可
+    ,find: '/layim/demo/find.html' //发现页面地址，若不开启，剔除该项即可
+    ,chatLog: '/layim/demo/chatlog.html' //聊天记录页面地址，若不开启，剔除该项即可
+    
+  });
+  //监听在线状态的切换事件
+  layim.on('online', function(status){
+    layer.msg(status);
+  });
+  
+  //监听签名修改
+  layim.on('sign', function(value){
+    layer.msg(value);
+  });
+  //监听自定义工具栏点击，以添加代码为例
+  layim.on('tool(code)', function(insert){
+    layer.prompt({
+      title: '插入代码 - 工具栏扩展示例'
+      ,formType: 2
+      ,shade: 0
+    }, function(text, index){
+      layer.close(index);
+      insert('[pre class=layui-code]' + text + '[/pre]'); //将内容插入到编辑器
+    });
+  });
+  
+  //监听layim建立就绪
+  layim.on('ready', function(res){
+    //console.log(res.mine);
+    layim.msgbox(5); //模拟消息盒子有新消息，实际使用时，一般是动态获得
+  });
+  //监听发送消息
+  layim.on('sendMessage', function(data){
+    var To = data.to;
+    //console.log(data);
+    
+    if(To.type === 'friend'){
+      layim.setChatStatus('<span style="color:#FF5722;">对方正在输入。。。</span>');
+    }
+    
+    //演示自动回复
+    setTimeout(function(){
+      var obj = {};
+      if(To.type === 'group'){
+        obj = {
+          username: '模拟群员'+(Math.random()*100|0)
+          ,avatar: layui.cache.dir + 'images/face/'+ (Math.random()*72|0) + '.gif'
+          ,id: To.id
+          ,type: To.type
+          ,content: autoReplay[Math.random()*9|0]
+        }
+      } else {
+        obj = {
+          username: To.name
+          ,avatar: To.avatar
+          ,id: To.id
+          ,type: To.type
+          ,content: autoReplay[Math.random()*9|0]
+        }
+        layim.setChatStatus('<span style="color:#FF5722;">在线</span>');
+      }
+      layim.getMessage(obj);
+    }, 1000);
+  });
+  //监听查看群员
+  layim.on('members', function(data){
+    //console.log(data);
+  });
+  
+  //监听聊天窗口的切换
+  layim.on('chatChange', function(res){
+    var type = res.data.type;
+    console.log(res.data.id)
+    if(type === 'friend'){
+      //模拟标注好友状态
+      //layim.setChatStatus('<span style="color:#FF5722;">在线</span>');
+    } else if(type === 'group'){
+      //模拟系统消息
+      layim.getMessage({
+        system: true
+        ,id: res.data.id
+        ,type: "group"
+        ,content: '模拟群员'+(Math.random()*100|0) + '加入群聊'
+      });
+    }
+  });
+  
+  
+  //面板外的操作
+  var $ = layui.jquery, active = {
+    chat: function(){
+      //自定义会话
+      layim.chat({
+        name: '小闲'
+        ,type: 'friend'
+        ,avatar: '//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg'
+        ,id: 1008612
+      });
+      layer.msg('也就是说，此人可以不在好友面板里');
+    }
+    ,message: function(){
+      //制造好友消息
+      layim.getMessage({
+        username: "贤心"
+        ,avatar: "//tp1.sinaimg.cn/1571889140/180/40030060651/1"
+        ,id: "100001"
+        ,type: "friend"
+        ,content: "嗨，你好！欢迎体验LayIM。演示标记："+ new Date().getTime()
+        ,timestamp: new Date().getTime()
+      });
+    }
+    ,messageAudio: function(){
+      //接受音频消息
+      layim.getMessage({
+        username: "林心如"
+        ,avatar: "//tp3.sinaimg.cn/1223762662/180/5741707953/0"
+        ,id: "76543"
+        ,type: "friend"
+        ,content: "audio[http://gddx.sc.chinaz.com/Files/DownLoad/sound1/201510/6473.mp3]"
+        ,timestamp: new Date().getTime()
+      });
+    }
+    ,messageVideo: function(){
+      //接受视频消息
+      layim.getMessage({
+        username: "林心如"
+        ,avatar: "//tp3.sinaimg.cn/1223762662/180/5741707953/0"
+        ,id: "76543"
+        ,type: "friend"
+        ,content: "video[http://www.w3school.com.cn//i/movie.ogg]"
+        ,timestamp: new Date().getTime()
+      });
+    }
+    ,messageTemp: function(){
+      //接受临时会话消息
+      layim.getMessage({
+        username: "小酱"
+        ,avatar: "//tva1.sinaimg.cn/crop.7.0.736.736.50/bd986d61jw8f5x8bqtp00j20ku0kgabx.jpg"
+        ,id: "198909151014"
+        ,type: "friend"
+        ,content: "临时："+ new Date().getTime()
+      });
+    }
+    ,add: function(){
+      //实际使用时数据由动态获得
+      layim.add({
+        type: 'friend'
+        ,username: '麻花疼'
+        ,avatar: '//tva1.sinaimg.cn/crop.0.0.720.720.180/005JKVuPjw8ers4osyzhaj30k00k075e.jpg'
+        ,submit: function(group, remark, index){
+          layer.msg('好友申请已发送，请等待对方确认', {
+            icon: 1
+            ,shade: 0.5
+          }, function(){
+            layer.close(index);
+          });
+          
+          //通知对方
+          /*
+          $.post('/im-applyFriend/', {
+            uid: info.uid
+            ,from_group: group
+            ,remark: remark
+          }, function(res){
+            if(res.status != 0){
+              return layer.msg(res.msg);
+            }
+            layer.msg('好友申请已发送，请等待对方确认', {
+              icon: 1
+              ,shade: 0.5
+            }, function(){
+              layer.close(index);
+            });
+          });
+          */
+        }
+      });
+    }
+    ,addqun: function(){
+      layim.add({
+        type: 'group'
+        ,username: 'LayIM会员群'
+        ,avatar: '//tva2.sinaimg.cn/crop.0.0.180.180.50/6ddfa27bjw1e8qgp5bmzyj2050050aa8.jpg'
+        ,submit: function(group, remark, index){
+          layer.msg('申请已发送，请等待管理员确认', {
+            icon: 1
+            ,shade: 0.5
+          }, function(){
+            layer.close(index);
+          });
+          
+          //通知对方
+          /*
+          $.post('/im-applyGroup/', {
+            uid: info.uid
+            ,from_group: group
+            ,remark: remark
+          }, function(res){
+          
+          });
+          */
+        }
+      });
+    }
+    ,addFriend: function(){
+      var user = {
+        type: 'friend'
+        ,id: 1234560
+        ,username: '李彦宏' //好友昵称，若申请加群，参数为：groupname
+        ,avatar: '//tva4.sinaimg.cn/crop.0.0.996.996.180/8b2b4e23jw8f14vkwwrmjj20ro0rpjsq.jpg' //头像
+        ,sign: '全球最大的中文搜索引擎'
+      }
+      layim.setFriendGroup({
+        type: user.type
+        ,username: user.username
+        ,avatar: user.avatar
+        ,group: layim.cache().friend //获取好友列表数据
+        ,submit: function(group, index){
+          //一般在此执行Ajax和WS，以通知对方已经同意申请
+          //……
+          
+          //同意后，将好友追加到主面板
+          layim.addList({
+            type: user.type
+            ,username: user.username
+            ,avatar: user.avatar
+            ,groupid: group //所在的分组id
+            ,id: user.id //好友ID
+            ,sign: user.sign //好友签名
+          });
+          
+          layer.close(index);
+        }
+      });
+    }
+    ,addGroup: function(){
+      layer.msg('已成功把[Angular开发]添加到群组里', {
+        icon: 1
+      });
+      //增加一个群组
+      layim.addList({
+        type: 'group'
+        ,avatar: "//tva3.sinaimg.cn/crop.64.106.361.361.50/7181dbb3jw8evfbtem8edj20ci0dpq3a.jpg"
+        ,groupname: 'Angular开发'
+        ,id: "12333333"
+        ,members: 0
+      });
+    }
+    ,removeFriend: function(){
+      layer.msg('已成功删除[凤姐]', {
+        icon: 1
+      });
+      //删除一个好友
+      layim.removeList({
+        id: 121286
+        ,type: 'friend'
+      });
+    }
+    ,removeGroup: function(){
+      layer.msg('已成功删除[前端群]', {
+        icon: 1
+      });
+      //删除一个群组
+      layim.removeList({
+        id: 101
+        ,type: 'group'
+      });
+    }
+    //置灰离线好友
+    ,setGray: function(){
+      layim.setFriendStatus(168168, 'offline');
+      
+      layer.msg('已成功将好友[马小云]置灰', {
+        icon: 1
+      });
+    }
+    //取消好友置灰
+    ,unGray: function(){
+      layim.setFriendStatus(168168, 'online');
+      
+      layer.msg('成功取消好友[马小云]置灰状态', {
+        icon: 1
+      });
+    }
+    
+    ,kefu1: function(){
+      layim.chat({
+        name: '在线客服一' //名称
+        ,type: 'kefu' //聊天类型
+        ,avatar: '//tp1.sinaimg.cn/5619439268/180/40030060651/1' //头像
+        ,id: 1111111 //定义唯一的id方便你处理信息
+      })
+    }
+    ,kefu2: function(){
+      layim.chat({
+        name: '在线客服二' //名称
+        ,type: 'kefu' //聊天类型
+        ,avatar: '//tp1.sinaimg.cn/5619439268/180/40030060651/1' //头像
+        ,id: 2222222 //定义唯一的id方便你处理信息
+      });
+    }
+    
+    //移动端版本
+    ,mobile: function(){
+      var device = layui.device();
+      var mobileHome = '/layim/demo/mobile.html';
+      if(device.android || device.ios){
+        return location.href = mobileHome;
+      }
+      var index = layer.open({
+        type: 2
+        ,title: '移动版演示 （或手机扫右侧二维码预览）'
+        ,content: mobileHome
+        ,area: ['375px', '667px']
+        ,shadeClose: true
+        ,shade: 0.8
+        ,end: function(){
+          layer.close(index + 2);
+        }
+      });
+      layer.photos({
+        photos: {
+          "data": [{
+            "src": "http://cdn.layui.com/upload/2016_12/168_1481056358469_50288.png",
+          }]
+        }
+        ,anim: 0
+        ,shade: false
+        ,success: function(layero){
+          layero.css('margin-left', '350px');
+        }
+      });
+    }
+  };
+  $('.LAY-senior-im-chat-demo .layui-btn').on('click', function(){
+    var type = $(this).data('type');
+    active[type] ? active[type].call(this) : '';
+  });
+  
+});
+</script></div>
+  </div>
+  
+  <!-- 辅助元素，一般用于移动设备下遮罩 -->
+  <div class="layadmin-body-shade" layadmin-event="shade"></div>
+  
+</div></div>
+  <script src="//res.layui.com/layui/rc/layui.js?t=20181101-1"></script>
+  <script>
+  layui.config({
+    base: './dist/' //指定 layuiAdmin 项目路径
+    ,version: '1.2.1'
+  }).use('index', function(){
+    var layer = layui.layer, admin = layui.admin;
+    layer.ready(function(){
+      admin.popup({
+        content: '单页面专业版默认未开启“多标签”功能，实际运用时，你可以自定义是否开启'
+        ,area: '300px'
+        ,btnAlign: 'c'
+        ,shade: false
+      });
+    });
+  });
+  </script>
+  
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?d214947968792b839fd669a4decaaffc";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+
+
+
+
+<div style="position: static; display: none; width: 0px; height: 0px; border: none; padding: 0px; margin: 0px;"><div id="trans-tooltip"><div id="tip-left-top" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-left-top.png&quot;);"></div><div id="tip-top" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-top.png&quot;) repeat-x;"></div><div id="tip-right-top" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-right-top.png&quot;);"></div><div id="tip-right" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-right.png&quot;) repeat-y;"></div><div id="tip-right-bottom" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-right-bottom.png&quot;);"></div><div id="tip-bottom" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-bottom.png&quot;) repeat-x;"></div><div id="tip-left-bottom" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-left-bottom.png&quot;);"></div><div id="tip-left" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-left.png&quot;);"></div><div id="trans-content"></div></div><div id="tip-arrow-bottom" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-arrow-bottom.png&quot;);"></div><div id="tip-arrow-top" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-arrow-top.png&quot;);"></div></div><style id="LAY_layadmin_theme">.layui-side-menu,.layadmin-pagetabs .layui-tab-title li:after,.layadmin-pagetabs .layui-tab-title li.layui-this:after,.layui-layer-admin .layui-layer-title,.layadmin-side-shrink .layui-side-menu .layui-nav>.layui-nav-item>.layui-nav-child{background-color:undefined !important;}.layui-nav-tree .layui-this,.layui-nav-tree .layui-this>a,.layui-nav-tree .layui-nav-child dd.layui-this,.layui-nav-tree .layui-nav-child dd.layui-this a{background-color:undefined !important;}.layui-layout-admin .layui-logo{background-color:#226A62 !important;}.layui-layout-admin .layui-header{background-color:#2F9688;}.layui-layout-admin .layui-header a,.layui-layout-admin .layui-header a cite{color: #f8f8f8;}.layui-layout-admin .layui-header a:hover{color: #fff;}.layui-layout-admin .layui-header .layui-nav .layui-nav-more{border-top-color: #fbfbfb;}.layui-layout-admin .layui-header .layui-nav .layui-nav-mored{border-color: transparent; border-bottom-color: #fbfbfb;}.layui-layout-admin .layui-header .layui-nav .layui-this:after, .layui-layout-admin .layui-header .layui-nav-bar{background-color: #fff; background-color: rgba(255,255,255,.5);}.layadmin-pagetabs .layui-tab-title li:after{display: none;}</style><div class="layui-layer-move"></div><div class="layui-layer layui-layer-page layui-box layui-layim" id="layui-layer2" type="page" times="2" showtime="0" contype="string" style="z-index: 19891016; width: 260px; height: 520px; top: 95px; left: 1428px; background-image: url(&quot;https://res.layui.com/layui/rc/css/modules/layim/skin/3.jpg&quot;); display: block;"><div class="layui-layer-title" style="cursor: move;">&#8203;</div><div id="layui-layim" class="layui-layer-content" style="height: 410px;"><div class="layui-layim-main"><div class="layui-layim-info"><div class="layui-layim-user">纸飞机</div><div class="layui-layim-status"><span class="layui-icon layim-status-online" layim-event="status" lay-type="show"></span><ul class="layui-anim layim-menu-box"><li class="layim-this" layim-event="status" lay-type="online"><i class="layui-icon"></i><cite class="layui-icon layim-status-online"></cite>在线</li><li layim-event="status" lay-type="hide"><i class="layui-icon"></i><cite class="layui-icon layim-status-hide"></cite>隐身</li></ul></div><input class="layui-layim-remark" placeholder="编辑签名" value="在深邃的编码世界，做一枚轻盈的纸飞机"></div><ul class="layui-unselect layui-layim-tab"><li class="layui-icon layim-this" title="联系人" layim-event="tab" lay-type="friend"></li><li class="layui-icon" title="群组" layim-event="tab" lay-type="group"></li><li class="layui-icon" title="历史会话" layim-event="tab" lay-type="history"></li></ul><ul class="layui-unselect layim-tab-content layui-show layim-list-friend"><li><h5 layim-event="spread" lay-type="true"><i class="layui-icon"></i><span>知名人物</span><em>(<cite class="layim-count"> 5</cite>)</em></h5><ul class="layui-layim-list  layui-show"><li layim-event="chat" data-type="friend" data-index="0" class="layim-friend100001 "><img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"><span>贤心</span><p>这些都是测试数据，实际使用请严格按照该格式返回</p><span class="layim-msg-status">new</span></li><li layim-event="chat" data-type="friend" data-index="0" class="layim-friend100001222 "><img src="//tva4.sinaimg.cn/crop.0.1.1125.1125.180/475bb144jw8f9nwebnuhkj20v90vbwh9.jpg"><span>刘涛tamia</span><p>如约而至，不负姊妹欢乐颂</p><span class="layim-msg-status">new</span></li><li layim-event="chat" data-type="friend" data-index="0" class="layim-friend10034001 "><img src="//tva2.sinaimg.cn/crop.1.0.747.747.180/633f068fjw8f9h040n951j20ku0kr74t.jpg"><span>谢楠</span><p></p><span class="layim-msg-status">new</span></li><li layim-event="chat" data-type="friend" data-index="0" class="layim-friend168168 "><img src="//tva1.sinaimg.cn/crop.0.0.180.180.180/7fde8b93jw1e8qgp5bmzyj2050050aa8.jpg"><span>马小云</span><p>让天下没有难写的代码</p><span class="layim-msg-status">new</span></li><li layim-event="chat" data-type="friend" data-index="0" class="layim-friend666666 "><img src="//tva1.sinaimg.cn/crop.0.0.512.512.180/6a4acad5jw8eqi6yaholjj20e80e8t9f.jpg"><span>徐小峥</span><p>代码在囧途，也要写到底</p><span class="layim-msg-status">new</span></li></ul></li><li><h5 layim-event="spread" lay-type="undefined"><i class="layui-icon"></i><span>网红声优</span><em>(<cite class="layim-count"> 5</cite>)</em></h5><ul class="layui-layim-list "><li layim-event="chat" data-type="friend" data-index="1" class="layim-friend121286 "><img src="//tva4.sinaimg.cn/crop.0.0.640.640.180/4a02849cjw8fc8vn18vktj20hs0hs75v.jpg"><span>罗玉凤</span><p>在自己实力不济的时候，不要去相信什么媒体和记者。他们不是善良的人，有时候候他们的采访对当事人而言就是陷阱</p><span class="layim-msg-status">new</span></li><li layim-event="chat" data-type="friend" data-index="1" class="layim-friend108101 "><img src="//tva1.sinaimg.cn/crop.0.23.1242.1242.180/8693225ajw8fbimjimpjwj20yi0zs77l.jpg"><span>Z_子晴</span><p>微电商达人</p><span class="layim-msg-status">new</span></li><li layim-event="chat" data-type="friend" data-index="1" class="layim-friend12123454 "><img src="//tva2.sinaimg.cn/crop.0.0.512.512.180/005LMAegjw8f2bp9qg4mrj30e80e8dg5.jpg"><span>大鱼_MsYuyu</span><p>我瘋了！這也太準了吧  超級笑點低</p><span class="layim-msg-status">new</span></li><li layim-event="chat" data-type="friend" data-index="1" class="layim-friend102101 "><img src="//tva2.sinaimg.cn/crop.0.0.640.640.180/648fbe5ejw8ethmg0u9egj20hs0ht0tn.jpg"><span>醋醋cucu</span><p></p><span class="layim-msg-status">new</span></li><li layim-event="chat" data-type="friend" data-index="1" class="layim-friend3435343 "><img src="//tva2.sinaimg.cn/crop.0.8.751.751.180/961a9be5jw8fczq7q98i7j20kv0lcwfn.jpg"><span>柏雪近在它香</span><p></p><span class="layim-msg-status">new</span></li></ul></li><li><h5 layim-event="spread" lay-type="undefined"><i class="layui-icon"></i><span>女神艺人</span><em>(<cite class="layim-count"> 2</cite>)</em></h5><ul class="layui-layim-list "><li layim-event="chat" data-type="friend" data-index="2" class="layim-friend76543 "><img src="//wx2.sinaimg.cn/mw690/5db11ff4gy1flxmew7edlj203d03wt8n.jpg"><span>王祖贤</span><p>我爱贤心</p><span class="layim-msg-status">new</span></li><li layim-event="chat" data-type="friend" data-index="2" class="layim-friend4803920 "><img src="//tva3.sinaimg.cn/crop.0.0.750.750.180/5033b6dbjw8etqysyifpkj20ku0kuwfw.jpg"><span>佟丽娅</span><p>我也爱贤心吖吖啊</p><span class="layim-msg-status">new</span></li></ul></li></ul><ul class="layui-unselect layim-tab-content "><li><ul class="layui-layim-list layui-show layim-list-group"><li layim-event="chat" data-type="group" data-index="0" class="layim-group101 "><img src="//tva1.sinaimg.cn/crop.0.0.200.200.50/006q8Q6bjw8f20zsdem2mj305k05kdfw.jpg"><span>前端群</span><p></p><span class="layim-msg-status">new</span></li><li layim-event="chat" data-type="group" data-index="1" class="layim-group102 "><img src="//tva2.sinaimg.cn/crop.0.0.199.199.180/005Zseqhjw1eplix1brxxj305k05kjrf.jpg"><span>Fly社区官方群</span><p></p><span class="layim-msg-status">new</span></li></ul></li></ul><ul class="layui-unselect layim-tab-content "><li><ul class="layui-layim-list layui-show layim-list-history"><li layim-event="chat" data-type="history" data-index="friend100001" class="layim-friend100001 "><img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"><span>贤心</span><p>这些都是测试数据，实际使用请严格按照该格式返回</p><span class="layim-msg-status">new</span></li><li layim-event="chat" data-type="history" data-index="friend1008612" class="layim-friend1008612 "><img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg"><span>小闲</span><p></p><span class="layim-msg-status">new</span></li></ul></li></ul><ul class="layui-unselect layim-tab-content"><li><ul class="layui-layim-list layui-show" id="layui-layim-search"></ul></li></ul><ul class="layui-unselect layui-layim-tool"><li class="layui-icon layim-tool-search" layim-event="search" title="搜索"></li><li class="layui-icon layim-tool-msgbox" layim-event="msgbox" title="消息盒子"><span class="layui-anim layui-anim-loop layer-anim-05">5</span></li><li class="layui-icon layim-tool-find" layim-event="find" title="查找"></li><li class="layui-icon layim-tool-skin" layim-event="skin" title="更换背景"></li><li class="layui-icon layim-tool-about" layim-event="about" title="关于"></li></ul><div class="layui-layim-search"><input><label class="layui-icon" layim-event="closeSearch">ဇ</label></div></div></div><span class="layui-layer-setwin"><a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a></span></div><div class="layui-layer layui-layer-page layui-box layui-layim-chat" id="layui-layer4" type="page" times="4" showtime="0" contype="string" style="z-index: 19891018; width: 600px; top: 47.5px; left: 544px; min-width: 500px; min-height: 420px; background-image: url(&quot;https://res.layui.com/layui/rc/css/modules/layim/skin/3.jpg&quot;);"><div class="layui-layer-title" style="cursor: move;">&#8203;</div><div id="layui-layim-chat" class="layui-layer-content"><ul class="layui-unselect layim-chat-list"><li class="layim-friend100001 layim-chatlist-friend100001 layim-this" layim-event="tabChat"><img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"><span>贤心</span><i class="layui-icon" layim-event="closeChat">ဇ</i></li></ul><div class="layim-chat-box"><div class="layim-chat layim-chat-friend layui-show"><div class="layui-unselect layim-chat-title"><div class="layim-chat-other"><img class="layim-friend100001" src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"><span class="layim-chat-username" layim-event="">贤心  </span><p class="layim-chat-status"></p></div></div><div class="layim-chat-main"><ul></ul></div><div class="layim-chat-footer"><div class="layui-unselect layim-chat-tool" data-json="%7B%22username%22%3A%22%E8%B4%A4%E5%BF%83%22%2C%22id%22%3A%22100001%22%2C%22avatar%22%3A%22%2F%2Ftva1.sinaimg.cn%2Fcrop.0.0.118.118.180%2F5db11ff4gw1e77d3nqrv8j203b03cweg.jpg%22%2C%22sign%22%3A%22%E8%BF%99%E4%BA%9B%E9%83%BD%E6%98%AF%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%AE%9E%E9%99%85%E4%BD%BF%E7%94%A8%E8%AF%B7%E4%B8%A5%E6%A0%BC%E6%8C%89%E7%85%A7%E8%AF%A5%E6%A0%BC%E5%BC%8F%E8%BF%94%E5%9B%9E%22%2C%22status%22%3A%22online%22%2C%22name%22%3A%22%E8%B4%A4%E5%BF%83%22%2C%22type%22%3A%22friend%22%7D"><span class="layui-icon layim-tool-face" title="选择表情" layim-event="face"></span><span class="layui-icon layim-tool-image" title="上传图片" layim-event="image"><input type="file" name="file"></span><span class="layui-icon layim-tool-image" title="发送文件" layim-event="image" data-type="file"><input type="file" name="file"></span><span class="layui-icon layim-tool-audio" title="发送网络音频" layim-event="media" data-type="audio"></span><span class="layui-icon layim-tool-video" title="发送网络视频" layim-event="media" data-type="video"></span><span class="layui-icon layim-tool-code" title="代码" layim-event="extend" lay-filter="code"></span><span class="layim-tool-log" layim-event="chatLog"><i class="layui-icon"></i>聊天记录</span></div><div class="layim-chat-textarea"><textarea></textarea></div><div class="layim-chat-bottom"><div class="layim-chat-send"><span class="layim-send-close" layim-event="closeThisChat">关闭</span><span class="layim-send-btn" layim-event="send">发送</span><span class="layim-send-set" layim-event="setSend" lay-type="show"><em class="layui-edge"></em></span><ul class="layui-anim layim-menu-box"><li class="layim-this" layim-event="setSend" lay-type="Enter"><i class="layui-icon"></i>按Enter键发送消息</li><li layim-event="setSend" lay-type="Ctrl+Enter"><i class="layui-icon"></i>按Ctrl+Enter键发送消息</li></ul></div></div></div></div></div></div><span class="layui-layer-setwin"><a class="layui-layer-min" href="javascript:;"><cite></cite></a><a class="layui-layer-ico layui-layer-max" href="javascript:;"></a><a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a></span><span class="layui-layer-resize"></span></div></body></html>
