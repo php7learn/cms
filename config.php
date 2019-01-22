@@ -5,8 +5,8 @@ define("DEBUG",true);
 
 define("DB_HOST",'192.168.1.17');
 define("DB_USER",'root');
-define("DB_PWD",'root');
-define("DB_NAME",'asklib');
+define("DB_PWD",'Doc88816.');
+define("DB_NAME",'shopcms');
 // error_reporting(E_ALL);
 // ini_set('display_errors', '1');
 if(DEBUG){
