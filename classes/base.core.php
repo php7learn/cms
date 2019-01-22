@@ -4,7 +4,7 @@ class base{
 	public $tpl;
 	
 	public function __construct(){
-		require ROOT."/lib/smarty/Smarty.class.php";
+		require ROOT."/lib/Smarty.class.php";
 		$this->tpl=new Smarty;
 		$this->tpl->left_delimiter=LEFT_DELIMITER;
 		$this->tpl->right_delimiter=RIGHT_DELIMITER;
