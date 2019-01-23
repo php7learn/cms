@@ -10,6 +10,7 @@ define("DB_NAME",'shopcms');
 // error_reporting(E_ALL);
 // ini_set('display_errors', '1');
 if(DEBUG){
+    header('Content-Type: text/html; charset=utf-8');
 	error_reporting(E_ALL);
 	ini_set('display_errors', '1');
 }
