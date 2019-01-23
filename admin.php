@@ -13,6 +13,12 @@ class adminCtrl extends base
             case 'test':
                 $this->test();
                 break;
+            case 'user':
+                $this->user_list();
+                break;
+            case 'goods':
+                $this->goods_list();
+                break;
             default:
                 $this->index();
         }
@@ -29,7 +35,28 @@ class adminCtrl extends base
         $this->tpl->assign("test", "test");
         $this->tpl->display("main.html");
     }
-
+    function user_list()
+    {
+        require_once 'classes/admin.class.php';
+         
+        $question = new adminClass();
+        $id = isset($_GET['id']) ? $_GET['id'] : 1 ;
+        $res = $question->select_one("shop_goods_main","id='$id'");
+        //         print_r($res);
+        $this->tpl->assign("test", "test");
+        $this->tpl->display("user.html");
+    }
+    function goods_list()
+    {
+        require_once 'classes/admin.class.php';
+         
+        $question = new adminClass();
+        $id = isset($_GET['id']) ? $_GET['id'] : 1 ;
+        $res = $question->select_one("shop_goods_main","id='$id'");
+        //         print_r($res);
+        $this->tpl->assign("test", "test");
+        $this->tpl->display("goodslist.html");
+    }
     function index()
     {
         echo "hello";
