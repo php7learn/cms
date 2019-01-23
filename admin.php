@@ -25,9 +25,9 @@ class adminCtrl extends base
         $question = new adminClass();
         $id = isset($_GET['id']) ? $_GET['id'] : 1 ;
         $res = $question->select_one("shop_goods_main","id='$id'");
-        print_r($res);
+//         print_r($res);
         $this->tpl->assign("test", "test");
-        $this->tpl->display("test.html");
+        $this->tpl->display("main.html");
     }
 
     function index()

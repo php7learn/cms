@@ -1,6 +1,6 @@
 <?php 
 date_default_timezone_set('PRC');
-define("DEBUG",true);
+define("DEBUG",false);
 
 
 define("DB_HOST",'192.168.1.17');
