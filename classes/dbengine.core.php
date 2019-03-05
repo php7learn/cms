@@ -144,6 +144,22 @@ class dbengine{
 		}
 		return $res;
 	}
+
+
+	function update_sql($sql){
+        $res = $this->link->query($sql);
+        if($this->debug){
+            echo '<hr>执行SQL:'.$sql."<br>\n";
+            if($res){
+                printf("更新影响行数 (update): %d<br>\n", $this->link->affected_rows);
+            }else{
+                printf("更新失败: %s\n", $this->link->error);
+            }
+        }
+        return $res;
+    }
+
+
 	function insert($table,$data){
 		if( !is_array($data) || count($data)<=0) {
 			return false;

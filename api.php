@@ -103,9 +103,22 @@ class apiCtrl extends base
         $name = string::strip_html_tags_new ( $weight = isset($_POST['name']) ? $_POST['name'] : '' );
         $user_id = string::strip_html_tags_new ( $weight = isset($_POST['user_id']) ? (int)$_POST['user_id'] : '' );
         $post_code = string::strip_html_tags_new ( $weight = isset($_POST['post_code']) ? $_POST['post_code'] : '' );
-        if($type == 0){
-//            $res = $obj->insert_sql("insert into ");
+        $time = time();
+        if(empty( $phone )){
+            echo '{"resutl":1,"msg":"手机号码为空"}';exit();
         }
+        if($type == 0){
+            $res = $obj->insert_sql("insert into shop_user_address(name,address,user_id,post_code,phone,create_time) values('$name','$addr','$user_id','$post_code','$phone','$time')");
+            if($res){
+                echo '{"resutl":"'.$res.'","msg":"新增地址成功"}';exit();
+            }else{
+                echo '{"resutl":1,"msg":"新增地址失败"}';exit();
+            }
+
+        }
+        if($type == 1){
+        }
+
         var_dump($type);
     }
 
