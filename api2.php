@@ -145,6 +145,8 @@ class apiCtrl extends base
             exit();
         }
         // 登录凭证校验
+        require_once 'classes/index.class.php';
+        $obj = new indexClass();
         /**
          * 在不满足UnionID下发条件的情况下，返回参数
          * 参数 说明
@@ -163,15 +165,17 @@ class apiCtrl extends base
         $userid = 0;
         if (isset($result->openid)) {
             $ip = $this->get_ip();
-            $sql = "select * from nxcx_user where openid='" . $result->openid . "'";
-            $res = mysqli_query($this->link, $sql);
-            $num = mysqli_num_rows($res);
-            if ($num > 0) {
-                
+            //$sql = "select * from nxcx_user where openid='" . $result->openid . "'";
+            //$res = mysqli_query($this->link, $sql);
+            $res = $obj->select_one("shop_user_main", "openid='".$result->openid."'");
+            //$num = mysqli_num_rows($res);
+            if ($res) {
+                $userid = $res['user_id'];
             } else {
-                $sql1 = "insert into nxcx_user(openid,session_key,ipstr,info,network,refer,time,cfg) value('" . $result->openid . "','" . $result->session_key . "','" . $ip . "','" . $systeminfo . "','" . $network . "','" . $refer . "','" . time() . "','" . $cfg . "');";
-                mysqli_query($this->link, $sql1);
-                $userid = mysqli_insert_id($this->link);
+                //$sql1 = "insert into nxcx_user(openid,session_key,ipstr,info,network,refer,time,cfg) value('" . $result->openid . "','" . $result->session_key . "','" . $ip . "','" . $systeminfo . "','" . $network . "','" . $refer . "','" . time() . "','" . $cfg . "');";
+                //mysqli_query($this->link, $sql1);
+                $obj->insert_sql("insert into shop_user_main(openid) values ('".$result->openid."')");
+                $userid = mysqli_insert_id($obj->link);
             }
             
             // 返回tokenid
