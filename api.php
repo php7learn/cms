@@ -101,10 +101,11 @@ class apiCtrl extends base
         $addr = string::strip_html_tags_new ( $weight = isset($_POST['address']) ? $_POST['address'] : '' );
         $phone = string::strip_html_tags_new ( $weight = isset($_POST['phone']) ? $_POST['phone'] : '' );
         $name = string::strip_html_tags_new ( $weight = isset($_POST['name']) ? $_POST['name'] : '' );
-        $user_id = string::strip_html_tags_new ( $weight = isset($_POST['user_id']) ? (int)$_POST['user_id'] : '' );
+        $user_id = intval(string::strip_html_tags_new ( $weight = isset($_POST['user_id']) ? (int)$_POST['user_id'] : '' ));
         $post_code = string::strip_html_tags_new ( $weight = isset($_POST['post_code']) ? $_POST['post_code'] : '' );
+        $address_id = intval(string::strip_html_tags_new ( $weight = isset($_GET['address_id']) ? (int)$_GET['address_id'] : '' ));
         $time = time();
-        if(empty( $phone )){
+        if(empty( $phone ) && $type != 2){
             echo '{"resutl":1,"msg":"手机号码为空"}';exit();
         }
         if($type == 0){
@@ -117,9 +118,24 @@ class apiCtrl extends base
 
         }
         if($type == 1){
+            $res = $obj->update_sql("update shop_user_address set name='$name',address='$addr',phone='$phone',post_code='$post_code',update_time='$time' where address_id='$address_id' and user_id='$user_id'");
+            if($res){
+                echo '{"resutl":0,"msg":"更新地址成功"}';exit();
+            }else{
+                echo '{"resutl":1,"msg":"更新地址失败"}';exit();
+            }
         }
 
-        var_dump($type);
+        if($type == 2){
+            $res = $obj->delete("shop_user_address","address_id=$address_id");
+            if($res){
+                echo '{"resutl":0,"msg":"删除地址成功"}';exit();
+            }else{
+                echo '{"resutl":1,"msg":"删除地址失败"}';exit();
+            }
+        }
+
+//        var_dump($type);
     }
 
 
