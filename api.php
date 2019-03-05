@@ -72,7 +72,7 @@ class apiCtrl extends base
             $list = $obj->select("shop_goods_main");
             echo json_encode( $list );
         }else{
-            $list = $obj->select("shop_goods_main","catelog=>$catelog");
+            $list = $obj->get_array("select * from shop_goods_main where catelog=$catelog");
             echo json_encode( $list );
         }
 
