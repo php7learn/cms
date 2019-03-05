@@ -1,7 +1,7 @@
 <?php
 require "config.php";
 
-class indexCtrl extends base
+class apiCtrl extends base
 {
 
     public function main()
@@ -21,12 +21,16 @@ class indexCtrl extends base
                 $this->get_catelog();
                 break;
             //获取获取商品列表
-            case 'get_catelog_list':
-                $this->get_catelog_list();
+            case 'get_goods_list':
+                $this->get_goods_list();
                 break;
             //获取指定商品信息
             case 'get_goods_info':
                 $this->get_goods_info();
+                break;
+            //地址管理
+            case 'get_address':
+                $this->get_address();
                 break;
             default:
                 $this->index();
@@ -58,7 +62,7 @@ class indexCtrl extends base
     }
 
     //获取列表
-    private function get_catelog_list(){
+    private function get_goods_list(){
         require_once 'classes/index.class.php';
         $obj = new indexClass();
 
@@ -84,7 +88,25 @@ class indexCtrl extends base
             echo '{"resutl":1,"msg":"输入错误"}';exit();
         }
         $info = $obj->get_array("select * from shop_goods_main as t1 ,shop_goods_desc as t2 where t1.id=t2.goods_id and t1.id=$id");
-        print_r($info);
+        echo json_encode( $info );
+    }
+
+
+    private function get_address(){
+        require_once 'classes/index.class.php';
+        $obj = new indexClass();
+        require_once 'classes/String.class.php';
+
+        $type =intval(string::strip_html_tags_new ( $weight = isset($_GET['type']) ? (int)$_GET['type'] : 0 ));
+        $addr = string::strip_html_tags_new ( $weight = isset($_POST['address']) ? $_POST['address'] : '' );
+        $phone = string::strip_html_tags_new ( $weight = isset($_POST['phone']) ? $_POST['phone'] : '' );
+        $name = string::strip_html_tags_new ( $weight = isset($_POST['name']) ? $_POST['name'] : '' );
+        $user_id = string::strip_html_tags_new ( $weight = isset($_POST['user_id']) ? (int)$_POST['user_id'] : '' );
+        $post_code = string::strip_html_tags_new ( $weight = isset($_POST['post_code']) ? $_POST['post_code'] : '' );
+        if($type == 0){
+//            $res = $obj->insert_sql("insert into ");
+        }
+        var_dump($type);
     }
 
 
@@ -93,8 +115,7 @@ class indexCtrl extends base
 
 
 
-
 }
-$index = new indexCtrl();
-$index->main();
-unset($index);
+$api = new apiCtrl();
+$api->main();
+unset($api);

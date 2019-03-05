@@ -3,10 +3,16 @@ date_default_timezone_set('PRC');
 define("DEBUG",false);
 
 
-define("DB_HOST",'192.168.1.17');
+//define("DB_HOST",'192.168.1.17');
+//define("DB_USER",'root');
+//define("DB_PWD",'Doc88816.');
+//define("DB_NAME",'shopcms');
+
+
+define("DB_HOST",'123.56.129.183');
 define("DB_USER",'root');
-define("DB_PWD",'Doc88816.');
-define("DB_NAME",'shopcms');
+define("DB_PWD",'Doc88SR123');
+define("DB_NAME",'doc88');
 // error_reporting(E_ALL);
 // ini_set('display_errors', '1');
 if(DEBUG){

@@ -175,6 +175,23 @@ class dbengine{
 			return false;
 		}
 	}
+
+	function insert_sql($sql){
+        $res = $this->link->query($sql);
+        if($this->debug){
+            echo '<hr>执行SQL:'.$sql."<br>\n";
+            if($res){
+                printf("插入ID (INSERT): %d<br>\n", $this->link->insert_id);
+            }else{
+                printf("插入失败: %s\n", $this->link->error);
+            }
+        }
+        if($res){
+            return $this->link->insert_id;
+        }else{
+            return false;
+        }
+    }
 	function delete($table,$where ){
 		if( $where=='') {
 			return false;
