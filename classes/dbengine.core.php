@@ -99,6 +99,17 @@ class dbengine{
 			return false;
 		}
 	}
+
+	function get_array($sql){
+        $res = $this->link->query($sql);
+        $num=$res->num_rows;
+        if($num){
+            return $result = $res->fetch_assoc();
+        }else{
+            return false;
+        }
+    }
+
 	function select_sum($table,$where="1",$items='*'){
 		echo $sql = "select sum($items) as sum from $table where $where";
 		$res = $this->link->query($sql);
