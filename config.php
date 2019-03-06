@@ -29,6 +29,8 @@ if(DEBUG){
 	error_reporting(E_ALL);
 	ini_set('display_errors', '1');
 }
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
 session_set_cookie_params(86400);//cookie 1天有效
 session_start();
