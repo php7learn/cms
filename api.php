@@ -3,9 +3,10 @@ require "config.php";
 
 class apiCtrl extends base
 {
-
+    var $key;
     public function main()
     {
+        $this->key = APPID;
         $this->setsubtemplates('index');
         $act = isset($_GET['act']) ? $_GET['act'] : '';
         switch ($act) {
