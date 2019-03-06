@@ -9,6 +9,15 @@ define("DEBUG",false);
 //define("DB_NAME",'shopcms');
 
 
+/**
+ * 微信相关定义
+ */
+define("TOKEN", "asklib");
+define("AESKEY", "ZS2f7AYTPDHIf9hd0dCUeoxytn4liOUGCU7VVp78VCS");
+define("APPID", "wxb9ccb317f23b2ae2");
+define("SECRET", "1ff39e5fa96b307a4c671e38391c22af");//唯一 保存好
+
+
 define("DB_HOST",'123.56.129.183');
 define("DB_USER",'root');
 define("DB_PWD",'Doc88SR123');
