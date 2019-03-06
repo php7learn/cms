@@ -9,6 +9,9 @@ class apiCtrl extends base
         $this->setsubtemplates('index');
         $act = isset($_GET['act']) ? $_GET['act'] : '';
         switch ($act) {
+            case 'login':
+                $this->login();
+                break;
             case 'setadmin':
                 $this->setadmin();
                 break;
@@ -93,6 +96,7 @@ class apiCtrl extends base
 
 
     private function get_address(){
+        //$this->check_user();
         require_once 'classes/index.class.php';
         $obj = new indexClass();
         require_once 'classes/String.class.php';
@@ -139,7 +143,132 @@ class apiCtrl extends base
     }
 
 
-
+    private function login()
+    {
+        // 获取数据并记录
+        if (isset($_GET['code'])) {
+            $code = $_GET['code']; // 登录临时凭证
+        } else {
+            echo '{"result":"2","message":"code null"}';
+            exit();
+        }
+        // 登录凭证校验
+        require_once 'classes/index.class.php';
+        $obj = new indexClass();
+        /**
+         * 在不满足UnionID下发条件的情况下，返回参数
+         * 参数 说明
+         * openid 用户唯一标识
+         * session_key 会话密钥
+         * 在满足UnionID下发条件的情况下，返回参数
+         * 参数 说明
+         * openid 用户唯一标识
+         * session_key 会话密钥
+         * unionid 用户在开放平台的唯一标识符
+         */
+        $url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' . APPID . '&secret=' . SECRET . '&js_code=' . $code . '&grant_type=authorization_code';
+        $result = file_get_contents($url);
+        $result = json_decode($result);
+    
+        $userid = 0;
+        if (isset($result->openid)) {
+            $ip = $this->get_ip();
+            //$sql = "select * from nxcx_user where openid='" . $result->openid . "'";
+            //$res = mysqli_query($this->link, $sql);
+            $res = $obj->select_one("shop_user_main", "openid='".$result->openid."'");
+            //$num = mysqli_num_rows($res);
+            if ($res) {
+                $userid = $res['user_id'];
+            } else {
+                //$sql1 = "insert into nxcx_user(openid,session_key,ipstr,info,network,refer,time,cfg) value('" . $result->openid . "','" . $result->session_key . "','" . $ip . "','" . $systeminfo . "','" . $network . "','" . $refer . "','" . time() . "','" . $cfg . "');";
+                //mysqli_query($this->link, $sql1);
+                $obj->insert_sql("insert into shop_user_main(openid) values ('".$result->openid."')");
+                $userid = mysqli_insert_id($obj->link);
+            }
+    
+            // 返回tokenid
+            require_once ('classes/des1.class.php');
+    
+            $encrypt = new des1($this->key);
+            $tokenId = $encrypt->encrypt($result->openid . '@@' . time() . '@@' . $userid);
+            $tokenId = str_replace('+', '-', $tokenId);
+            $tokenId = str_replace('/', '_', $tokenId);
+            $tokenId = str_replace('=', '*', $tokenId);
+            header('Content-type: application/json');
+    
+            $expires = time() + 3600;
+            echo '{"result":"0","tokenid":"' . $tokenId . '","userid":"' . $userid . '","expires":"' . $expires . '000"}';
+        } else {
+            echo '{"result":"1","message":"' . $result->errcode . '"}';
+        }
+    }
+    //获取ip
+    function get_ip(){
+        $ip=false;
+        if(!empty($_SERVER["HTTP_CLIENT_IP"])){
+            $ip = $_SERVER["HTTP_CLIENT_IP"];
+        }
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+            $ips = explode (", ", $_SERVER['HTTP_X_FORWARDED_FOR']);
+            if ($ip){
+                array_unshift($ips, $ip); $ip = FALSE;
+            }
+            for ($i = 0; $i < count($ips); $i++){
+                if(strpos($ips[$i],'know') > 0){// unknow
+                    continue;
+                }
+                if (!eregi ("^(10|172\.16|192\.168)\.", $ips[$i])){
+                    $ip = $ips[$i];
+                    break;
+                }
+            }
+        }
+        return ($ip ? $ip : $_SERVER['REMOTE_ADDR']);
+    }
+    //校验用户
+    function check_user(){
+        $tokenid = $_GET['tokenid'];
+        if ($tokenid==""||$tokenid=="undefined") {
+            echo '{"result":-1, "message":"tokenid无效"}';
+            exit ();
+        }
+    
+        require_once ('classes/des1.class.php');
+        	
+        $encrypt = new des1($this->key);
+        $tokenid=str_replace('-','+',$tokenid);
+        $tokenid=str_replace('_','/',$tokenid);
+        $tokenid=str_replace('*','=',$tokenid);
+    
+        $tokenid = $encrypt->decrypt($tokenid);
+    
+    
+        $tokenid_array = explode ( '@@', $tokenid );
+        // 		echo time().'--';
+        if(!is_array($tokenid_array)){
+            echo '{"result":-1, "message":"tokenid不合法"}';
+            exit ();
+        }
+        if(!isset($tokenid_array['2'])||$tokenid_array['2']<1){
+            echo '{"result":-1, "message":"id不合法"}';
+            exit ();
+        }
+        // 		echo $hours = (time() - $tokenid_array[1])/3600;
+        // 		if ($hours > 48) {
+        // 			echo '{"result":0, "message":"tokenid过期"}';
+        // 			exit ();
+        // 		}
+        if (count ( $tokenid_array ) > 0) {
+            if($tokenid_array[2]==1){
+                $tokenid_array[2]=508;
+            }
+    
+            return $tokenid_array;
+        } else {
+            echo '{"result":-1, "message":"tokenid不合法"}';
+            exit ();
+        }
+    }
 
 
 
