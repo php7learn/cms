@@ -104,7 +104,7 @@ class dbengine{
         $res = $this->link->query($sql);
         $num=$res->num_rows;
         if($num){
-            return $result = $res->fetch_assoc();
+            return $result = $res->fetch_all();
         }else{
             return false;
         }

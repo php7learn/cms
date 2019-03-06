@@ -67,12 +67,15 @@ class apiCtrl extends base
         $obj = new indexClass();
 
         require_once 'classes/String.class.php';
+        $arr =array();
         $catelog = intval(string::strip_html_tags_new ( $weight = isset($_GET['catelog']) ? (int)$_GET['catelog'] : 0 ));
         if($catelog == 0){
             $list = $obj->select("shop_goods_main");
+            $arr[]=$list;
             echo json_encode( $list );
         }else{
             $list = $obj->get_array("select * from shop_goods_main where catelog=$catelog");
+            $arr[]=$list;
             echo json_encode( $list );
         }
 
