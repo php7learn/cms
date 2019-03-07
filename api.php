@@ -77,7 +77,12 @@ class apiCtrl extends base
             echo json_encode( $list );
         }else{
             $list = $obj->get_array("select * from shop_goods_main where catelog=$catelog");
-            echo json_encode( $list );
+            if(!$list){
+                echo '[]';
+            }else{
+                echo json_encode( $list );
+            }
+            
         }
 
     }
