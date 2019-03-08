@@ -90,13 +90,14 @@ class apiCtrl extends base
     private function get_goods_info(){
         require_once 'classes/index.class.php';
         $obj = new indexClass();
-
+        $obj->debug=true;
         require_once 'classes/String.class.php';
         $id = intval(string::strip_html_tags_new ( $weight = isset($_GET['id']) ? (int)$_GET['id'] : 0 ));
         if($id <= 0){
             echo '{"resutl":1,"msg":"输入错误"}';exit();
         }
-        $info = $obj->get_array("select * from shop_goods_main as t1 ,shop_goods_desc as t2 where t1.id=t2.goods_id and t1.id=$id");
+        
+        $info = $obj->get_array("select * from shop_goods_main where id=$id");
         echo json_encode( $info );
     }
 
