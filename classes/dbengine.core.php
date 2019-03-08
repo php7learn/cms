@@ -53,7 +53,7 @@ class dbengine{
 			$sql[] = " limit $offset,$limit";
 		}
 		$sql = implode($sql);
-// 		echo $sql;exit;
+		echo $sql;exit;
 // 		$sql="select $items from $table where $where limit $offset,$limit";
 		$res = $this->link->query($sql);
 		if($res){
