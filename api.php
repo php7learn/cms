@@ -98,7 +98,7 @@ class apiCtrl extends base
         }
         $info = $obj->select_one("shop_goods_main","id=$id");
 //         print_r($info);
-        $condition = array("where"=>"goods_id=$id");
+        $condition = array("where"=>"goods_id=$id","order"=>"desc_id asc");
         $list = $obj->select("shop_goods_desc",$condition);
         if($list){
             $info['info']=$list;
