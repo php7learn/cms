@@ -96,9 +96,7 @@ class apiCtrl extends base
         if($id <= 0){
             echo '{"resutl":1,"msg":"输入错误"}';exit();
         }
-        $sql  ="select * from shop_goods_main where id=$id";
-        echo $sql;
-        $info = $obj->get_array($sql);
+        $info = $obj->select_one("shop_goods_main","id=$id");
         echo json_encode( $info );
     }
 
