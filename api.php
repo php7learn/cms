@@ -97,10 +97,12 @@ class apiCtrl extends base
             echo '{"resutl":1,"msg":"输入错误"}';exit();
         }
         $info = $obj->select_one("shop_goods_main","id=$id");
-        print_r($info);
+//         print_r($info);
         $list = $obj->get_array("select * from shop_goods_desc where goods_id=$id");
         if($list){
-            print_r($list);
+            $info['info']=$list;
+        }else{
+            $info['info']=array();
         }
         
         echo json_encode( $info );
