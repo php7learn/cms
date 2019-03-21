@@ -1,0 +1,59 @@
+/* pages/text/text.wxss */
+.scroll-header{
+display: flex;
+white-space: nowrap;   
+}
+.scroll-header view{
+height:128rpx;
+width:128rpx;
+border:1px solid red;
+display: inline-block;  
+}
+
+/* 向上滚动固定导航 */
+.topnav{
+    position: fixed;
+    top: 0rpx;
+    z-index:99;
+    background:#fff;
+    width: 100%;
+}
+/**index.wxss**/
+/*全局样式*/
+page {
+  padding: 20px 0;
+}
+/*主容器*/
+.stepper {
+  width:80px;
+  height:26px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+/*加号和减号*/
+.stepper text {
+  float: left;
+  width: 19px;
+  line-height: 26px;
+  text-align: center;
+}
+/*数值*/
+.stepper input {
+  width: 40px;
+  height: 26px;
+  float: left;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 12px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+/*普通样式*/
+.stepper .normal {
+  color:black;
+}
+/*禁用样式*/
+.stepper .disable {
+  color: #ccc;
+}

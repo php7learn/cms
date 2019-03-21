@@ -1,0 +1,333 @@
+/* pages/goods-details/goods-details.wxss */
+page{
+  background: #ebebeb;
+}
+.goods-islide{
+  height: 750rpx
+}
+.goods-islide image{
+  height: 100%;
+  width: 100%;
+}
+.g-price-group{
+  padding: 20rpx 10rpx 0 20rpx;
+  position: relative;
+  background: #fff;
+}
+.g-group-price{
+  font-size: 30rpx;
+  color: #e02e24;
+  display: inline-block;
+}
+.price-range{
+  display: inline-block;
+  font-weight: bold;
+  font-size: 58rpx;
+}
+.qi{
+  font-size: 24rpx;
+}
+.g-market-price{
+  text-decoration:line-through;
+  font-size: 26rpx;
+ color: #58595b;
+}
+.g-sales{
+   display: inline-block;
+   font-size: 26rpx;
+   color: #58595b;
+    position: absolute;
+    right: 20rpx;
+    bottom: 10rpx;
+}
+.g-name-new{
+  background: #fff;
+   padding: 20rpx 20rpx 0 20rpx;
+  
+}
+.goods-header{
+ padding: 18rpx 0;
+}
+.goods-header{
+  border-bottom: 2rpx solid #ebebeb;
+}
+.goods-header>view,.goods-header-2>view,.goods-header-3>view{
+  display: inline-block;
+}
+.goods-name-content{
+  color: #151516;
+   font-size: 30rpx;
+}
+.g-c-title{
+  padding: 0 10rpx;
+  border-radius: 6rpx;
+  font-size:24rpx;
+  color: #fff;
+  background: #e02e24;
+  margin-right: 20rpx;
+}
+.g-c-text{
+   font-size: 26rpx;
+   color: #58595b;
+}
+.g-c-text-title{
+  font-size: 30rpx;
+  color: #58595b;
+}
+
+.g-c-text-all{
+  color:#9c9c9c;
+  font-size:26rpx;
+}
+
+ .goods-reviews-module{
+   background: #fff;
+   margin-top:10rpx;
+   padding:0rpx 20rpx;
+ }
+ .goods-header-3,.goods-header-2{
+    height: 76rpx;
+    line-height: 76rpx;
+ }
+ .goods-header-3{
+   border-bottom: 2rpx solid #ebebeb;
+ }
+ .goods-reviews-tags{
+   padding: 15rpx 0;
+ }
+ .tags{
+   margin-right:10rpx; 
+    padding:10rpx 15rpx;
+    font-size: 26rpx;
+    border-radius: 10rpx;
+    color: #58595b;
+    background: #fceae9;
+ }
+  .reviews-item-title{
+    margin-bottom:10rpx; 
+  
+  }
+  .goods-reviews-list{
+    border-bottom: 2rpx solid #ebebeb;
+    margin-bottom: 10rpx;
+  }
+ .reviews-item-title image{
+   width:48rpx;
+   height: 48rpx;
+   border-radius: 50%;
+   vertical-align: middle;
+   margin-right: 10rpx;
+ }
+ .item-name{
+  color: #151516;
+  font-size: 28rpx;
+   vertical-align: middle;
+ }
+ .reviews-item-content{
+   font-size: 28rpx;
+   color: #58595b;
+   margin-bottom: 10rpx;
+ }
+ .goods-mall-in-grey,.goods-details{
+   background: #fff;
+   padding:20rpx 15rpx;
+ }
+ .mall-logo{
+   width: 82rpx;
+   height: 82rpx;
+ }
+ .goods-mall-info{
+   display: inline-block;
+   margin-left: 20rpx;
+   vertical-align:top;
+ }
+ .goods-mall-name{
+   font-size: 30rpx;
+   color: #151516;
+ }
+ .goods-mall-num{
+   color: #9c9c9c;
+   font-size: 26rpx;
+ 
+ }
+ .mall-btn{
+   float: right;
+   margin-top:15rpx;
+   color: #151516
+ }
+ .dsr-name{
+   color: #58595b;
+   font-size: 26rpx;
+   margin-top:10rpx; 
+ }
+  .dsr-name>view{
+    display: inline-block;
+    width: 200rpx;
+    text-align: center;
+  }
+ .dsr-name .tags{
+   color: #E02E24;
+   margin-right: 40rpx;
+   padding: 0;
+ }
+ .goods-details{
+   margin-top: 10rpx;
+   font-size: 30rpx;
+   color: #151516;
+ }
+ .goods-details-info{
+   background: #f5f5f5;
+   font-size: 24rpx;
+   padding: 20rpx;
+   margin-top: 20rpx;
+ }
+ .img-details>image{
+   width: 100%;
+ }
+ .goods-bottom-bar{
+   position: fixed;
+   background: #fff;
+   width: 100%;
+   bottom: 0;
+   height: 95rpx;
+   padding-top:10rpx; 
+ }
+ .goods-bottom-bar>view{
+    display: inline-block;
+    width:20%;
+    text-align: center;
+    font-size:31rpx;
+    vertical-align:top;
+    height: 95rpx;
+    
+ }
+ .gengduo .iconfont,.shoucang .iconfont,.kefu .iconfont,.gobuy .iconfont{
+    display: block;
+    font-size: 44rpx;
+ }
+ .goods-bottom-bar>view.gobuy{
+   width:40%;
+   background: #e02e24;
+   color: #fff;
+ }
+.buypop{
+ position: fixed;
+  top: 0;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0,0, 0.8);
+}
+.confirm{
+   position: fixed;
+   bottom: 0;
+   width: 100%;
+}
+.pop-show{
+  height: 900rpx;
+  background: #fff;
+   position: fixed;
+   width: 100%;
+   bottom: 0;
+   z-index: 3;
+}
+.pop-head{
+  position: relative;
+}
+.pop-head-img{
+  position: absolute;
+  width: 200rpx;
+  height: 200rpx;
+  top:-40px;
+  left:10px;
+}
+.clos{
+  position: absolute;
+  top: 10rpx;
+  right:10px;
+}
+.pop-head-img image{
+  width: 100%;
+  height: 100%;
+  border: 2rpx solid #fff;
+  box-shadow: 0 0 0.02rem #58595b;
+}
+.pop-head-content{
+  height: 138rpx;
+  padding-top:10rpx;
+  padding-left: 250rpx; 
+  border-bottom: 2rpx solid #ebebeb;
+}
+.rmb{
+  font-size: 38rpx;
+  color: #e02e24;
+}
+.goods-elect{
+  color: #151516;
+  font-size: 24rpx;
+
+}
+.pop-content{
+  padding:20rpx;
+  font-size: 28rpx;
+  color: #151516;
+  border-bottom: 2rpx solid #ebebeb;
+  overflow: hidden;
+}
+.pop-content-title{
+  margin-bottom: 20rpx;
+}
+ .colour.active{
+      border: 2rpx solid  #e02e24;
+      background: #e02e24;
+      color: #fff;
+ }
+.pop-content>text{
+  display: inline-block;
+  padding:10rpx 15rpx;
+  background: #f5f5f5;
+  margin-right: 20rpx;
+  margin-top: 10rpx;
+  border-radius: 5rpx;
+}
+.pop-content-num{
+  display: inline-block;
+  margin-top:10rpx;
+}
+/*主容器*/
+.stepper {
+  width:80px;
+  height:26px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  display: inline-block;
+  float:right;
+
+}
+/*加号和减号*/
+.stepper text {
+  float: left;
+  width: 19px;
+  line-height: 26px;
+  text-align: center;
+  
+}
+/*数值*/
+.stepper input {
+  width: 40px;
+  height: 26px;
+  float: left;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 12px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+/*普通样式*/
+.stepper .normal {
+  color:black;
+}
+/*禁用样式*/
+.stepper .disable {
+  color: #ccc;
+}

@@ -1,0 +1,112 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+ .goods-reviews-list{
+    border-bottom: 2rpx solid #ebebeb;
+    margin-bottom: 10rpx;
+  }
+  .reviews-item-title image{
+   width:48rpx;
+   height: 48rpx;
+   border-radius: 50%;
+   vertical-align: middle;
+   margin-right: 10rpx;
+ }
+ .item-name{
+  color: #151516;
+  font-size: 28rpx;
+   vertical-align: middle;
+ }
+  .reviews-item-content{
+   font-size: 28rpx;
+   color: #58595b;
+   margin-bottom: 10rpx;
+ }
+ .g-c-right{
+  float: right;
+}
+.g-c-right image{
+    width: 32rpx;
+  height: 32rpx;
+  vertical-align:middle;
+}
+@font-face {
+  font-family: 'iconfont';  /* project id 1024864 */
+  src: url('//at.alicdn.com/t/font_1024864_98cs4mzyzvh.eot');
+  src: url('//at.alicdn.com/t/font_1024864_98cs4mzyzvh.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1024864_98cs4mzyzvh.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1024864_98cs4mzyzvh.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1024864_98cs4mzyzvh.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1024864_98cs4mzyzvh.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-wechat:before {
+  content: "\e619";
+}
+
+.icon-xiangyou:before {
+  content: "\e638";
+}
+
+.icon-kefu:before {
+  content: "\e63c";
+}
+
+.icon-zhifubao:before {
+  content: "\e665";
+}
+
+.icon-zhuijia:before {
+  content: "\e615";
+}
+
+.icon-dibiao:before {
+  content: "\e60a";
+}
+
+.icon-gengduo-2:before {
+  content: "\e641";
+}
+
+.icon-henhao:before {
+  content: "\e640";
+}
+
+.icon-xingxing1:before {
+  content: "\e6b9";
+}
+
+.icon-shoucang:before {
+  content: "\e75f";
+}
+
+.icon-youtu:before {
+  content: "\e60c";
+}
+
+.icon-shanchu:before {
+  content: "\e74c";
+}
+
+.icon-zhuye:before {
+  content: "\e600";
+}
+
+.icon-zan:before {
+  content: "\e607";
+}
+

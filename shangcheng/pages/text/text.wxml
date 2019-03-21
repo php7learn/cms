@@ -1,0 +1,22 @@
+<!--pages/text/text.wxml-->
+ <!-- <scroll-view scroll-x class="scroll-header">
+<view id="green" class="scroll-view-item bc_green"></view>
+<view id="red" class="scroll-view-item bc_red"></view>
+<view id="yellow" class="scroll-view-item bc_yellow"></view>
+<view id="blue" class="scroll-view-item bc_blue"></view>
+<view id="blue" class="scroll-view-item bc_blue"></view>
+<view id="blue" class="scroll-view-item bc_blue"></view>
+<view id="blue" class="scroll-view-item bc_blue"></view>
+<view id="blue" class="scroll-view-item bc_blue"></view>
+</scroll-view> -->
+<!-- <scroll-view style="width:100%;height: 100%;" scroll-y="true" bindscroll="scrollTopFun"> -->
+    <view class="{{top>30? 'topnav' : ''}}">
+     我决定这个是导航栏</view>
+<!-- </scroll-view> -->
+ <view style='height: 1000px;background:pink;' >这是一千高度</view>
+ <!--index.wxml-->
+<view class='stepper'>
+  <text class='{{minusStatus}}' type='number'  bindtap='bindMinus'>-</text>
+  <input bindinput='bindManual' value='{{num}}'></input>
+  <text bindtap='bindPlus'>+</text>
+</view>

@@ -1,0 +1,78 @@
+<!--pages/address/address.wxml-->
+<view class='oc-add-address' bindtap='addAddress'>
+  <image src='../../img/jia.png'></image>
+  手动添加收货地址
+  <view class='g-c-right'>
+    <image src='../../img/r.png'></image>
+  </view>
+</view>
+<view class='oc-add-address'>
+   <text class='iconfont icon-dibiao'></text>
+    <view class='address-main'> 
+        <view>纯属巧合  <text>151000000</text></view>
+        <view>北京市区海淀区中关村大街38号</view>
+    </view>
+</view>
+<image class="fengexian" src='../../img/fengexian.png'></image>
+<view class='oc-goods-mall'>
+  <image src='../../img/tx2.png'></image>
+  <text>巧合专卖店</text>
+</view>
+<view class='oc-goods-inherent-info'>
+  <view class='oc-goods-thumburl'>
+    <image class='oc-goods-thumburl-img' src='../../img/5.jpg'></image>
+  </view>
+  <view class='oc-goods-detail'>
+    <view class='oc-goods-name'>南极人加厚冬季棉衣男韩版中长款外套棉袄冬天男装棉服袄子</view>
+    <view class='specification-item'>颜色: 带毛领-黑色558棉衣</view>
+    <view class='specification-item'>尺码: XXL/180</view>
+    <view class='oc-goods-price'>¥119/件
+      <text class='oc-goods-label'>退货包运费</text>
+    </view>
+  </view>
+</view>
+<view class='oc-goods-number'>
+  购买数量
+  <view class='stepper'>
+    <text class='{{minusStatus}}' type='number' bindtap='bindMinus'>-</text>
+    <input bindinput='bindManual' value='{{num}}'></input>
+    <text bindtap='bindPlus'>+</text>
+  </view>
+</view>
+<view class='oc-goods-number'>
+  店铺优惠
+  <view class='desc-red'>
+    领劵立减2元
+    <text class='iconfont icon-xiangyou'></text>
+  </view>
+</view>
+<view class='oc-goods-number mg'>
+  平台优惠
+  <view class='desc-red'>
+    - 1.08
+    <text class='iconfont icon-xiangyou'></text>
+  </view>
+</view>
+
+<view class='oc-payment-item '>
+  <view class='oc-goods-number'>
+    <text class='iconfont icon-wechat'></text> 微信支付
+    <view class='desc-red'>
+      <radio value="wx" bindchange="radioChange"/>
+    </view>
+  </view>
+  <view class='oc-goods-number'>
+    <text class='iconfont icon-zhifubao'></text> 支付宝
+    <view class='desc-red'>
+      <radio value="wx" bindchange="radioChange"/>
+    </view>
+  </view>
+</view>
+<view class='oc-bottom-bar'>
+    <view class='oc-pay-final'>
+    <text class='oc-pay-title'>实付款：</text>    
+      <text class='oc-final-amount'>¥117.92</text>
+      <text class='oc-final-amount'>免运费</text>
+     </view>
+     <view  class='bottom-bar-btn' bindtap='pay'>立即支付</view> 
+</view>

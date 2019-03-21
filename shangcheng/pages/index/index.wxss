@@ -1,0 +1,124 @@
+/* pages/index/index.wxss */
+
+page {
+  background-color: #f2f2f2;
+}
+
+/* 向上滚动固定导航 */
+
+.topnav {
+  position: fixed;
+  top: 0rpx;
+  z-index: 99;
+}
+
+.pdd-slide {
+  width: 100%;
+  height: 280rpx;
+}
+
+.pdd-slide image {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-tab {
+  background: #fff;
+  border-bottom: 1rpx solid #eee;
+  text-align: center;
+  height: 90rpx;
+  line-height: 88rpx;
+  flex-flow: row;
+  font-size: 30rpx;
+  display: flex;
+  white-space: nowrap;
+}
+
+.swiper-tab-item {
+  width: 136rpx;
+  display: inline-block;
+  color: #434343;
+}
+
+.active {
+  color: #f65959;
+  border-bottom: 2rpx solid #f65959;
+}
+
+.car-list {
+  background: #fff;
+  display: inline-block;
+  margin-top: 5rpx;
+  margin-bottom: 5rpx;
+  margin-left: 5rpx;
+  margin-right: 4rpx;
+  height: 526rpx;
+  vertical-align: top;
+  position: relative;
+}
+.navigatorcls{
+  display:inline-block;
+}
+.navigator-hover{
+  display:inline-block;
+}
+.car-list>image {
+  width: 366rpx;
+  height: 366rpx;
+}
+
+.goods-name {
+  font-size: 26rpx;
+  color: #151516;
+  margin: 0 10rpx;
+}
+
+.goods-name>image {
+  width: 68rpx;
+  height: 30rpx;
+  vertical-align: top;
+}
+
+.goods-tag {
+  margin: 0 10rpx;
+  background-color: rgba(255, 87, 6, 0.08);
+  color: rgb(255, 87, 6);
+  font-size: 30rpx;
+  display: inline-block;
+}
+
+.buy-box {
+  width: 100%;
+  padding: 0 10rpx 10rpx 10rpx;
+  position: absolute;
+  bottom: 0px;
+}
+
+.price-icon {
+  font-size: 24rpx;
+  color: #e02e24;
+}
+
+.price {
+  font-size: 36rpx;
+  color: #e02e24;
+  font-weight: bold;
+}
+
+.buy-tips {
+  font-size: 24rpx;
+  color: #9c9c9c;
+}
+
+.go-buy-button {
+  width: 80rpx;
+  height: 56rpx;
+  border-radius: 40rpx;
+  background: #f03227;
+  color: #fff;
+  text-align: center;
+  line-height: 56rpx;
+  position: absolute;
+  right: 30rpx;
+  top: -5rpx;
+}

@@ -1,0 +1,69 @@
+<!--pages/goods-comment/goods-comment.wxml-->
+<view class='comment-tag-board'>
+    <view class='all-comment'>全部(23)</view>
+    <view>
+      <text class='iconfont icon-zhuijia'></text>追加(23)
+    </view>
+    <view>
+       <text class='iconfont icon-youtu'></text>有图(23)
+    </view>
+    <view> 
+       <text class='iconfont icon-henhao'></text>很好(23)
+    </view>
+      <view> 
+       <text class='iconfont icon-henhao'></text>很好(23)
+    </view>
+</view>
+<view class='goods-reviews-module'>
+    <view class='goods-reviews-list'>
+          <view class='reviews-item-title'>
+            <image class='' src='../../img/tx.png'></image>
+            <text class='item-name'>朝花夕拾</text>
+          </view>
+          <view class='reviews-item-content'>
+            比描述的有点薄，图片中看着很厚实，收到的戴在手上能看到手的肉色！不过挺结实的，数量也够，给好评吧！
+          </view>
+    </view>
+    <view class='goods-imgs'>
+        <view class='goods-img'>
+          <image class='' src='../../img/5.jpg'></image>
+        </view>
+        <view class='goods-img'>
+          <image class='' src='../../img/5.jpg'></image>
+        </view>
+        <view class='goods-img'>
+          <image class='' src='../../img/5.jpg'></image>
+        </view>
+    </view>
+    <view class='goods-info'>
+        2019.01.10  适用人群:DB01 皮款 黑色
+    </view> 
+   
+</view>
+<view class='goods-reviews-module'>
+    <view class='goods-reviews-list'>
+          <view class='reviews-item-title'>
+            <image class='' src='../../img/tx.png'></image>
+            <text class='item-name'>朝花夕拾</text>
+          </view>
+          <view class='reviews-item-content'>
+            比描述的有点薄，图片中看着很厚实，收到的戴在手上能看到手的肉色！不过挺结实的，数量也够，给好评吧！
+          </view>
+    </view>
+    <view class='goods-imgs'>
+        <view class='goods-img'>
+          <image class='' src='../../img/5.jpg'></image>
+        </view>
+        <view class='goods-img'>
+          <image class='' src='../../img/5.jpg'></image>
+        </view>
+        <view class='goods-img'>
+          <image class='' src='../../img/5.jpg'></image>
+        </view>
+    </view>
+    <view class='goods-info'>
+        2019.01.10  适用人群:DB01 皮款 黑色
+    </view> 
+</view>
+
+

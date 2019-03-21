@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/text/text",
+    "pages/goods-details/goods-details",
+    "pages/goods-comment/goods-comment",
+    "pages/address/address"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F65959",
+    "navigationBarTitleText": "旭燕堂燕窝",
+    "navigationBarTextStyle": "white"
+  }
+}
