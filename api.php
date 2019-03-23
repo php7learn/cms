@@ -135,21 +135,21 @@ class apiCtrl extends base
     }
 
     private function get_goods_order(){
+        $resp = "{'code': 200, 'msg': '操作成功~', 'data': {}}";
         require_once 'classes/index.class.php';
         $obj = new indexClass();
         require_once 'classes/String.class.php';
 //        $res = $this->check_user();
 
         $user_id=1;
-        $goods_id = intval(string::strip_html_tags_new ( $id = isset($_GET['goods_id']) ? (int)$_GET['goods_id'] : 0 ));
+//        $goods_id = intval(string::strip_html_tags_new ( $id = isset($_GET['goods_id']) ? (int)$_GET['goods_id'] : 0 ));
         $detail_id = intval(string::strip_html_tags_new ( $id = isset($_GET['detail_id']) ? (int)$_GET['detail_id'] : 0 ));
         $nums = intval(string::strip_html_tags_new ( $num = isset($_GET['num']) ? (int)$_GET['num'] : 0 ));
         $address_id = intval(string::strip_html_tags_new ( $num = isset($_GET['address_id']) ? (int)$_GET['address_id'] : 0 ));
         $goods_detail = $obj->select_one("shop_goods_detail","detail_id=$detail_id");
-        $goods_main = $obj->select_one("shop_goods_main","id=$goods_id");
-        if($goods_detail['discount'] <= 0){
-            echo '{"resutl":1,"msg":"库存不足"}';exit();
-        }
+        $goods_main = $obj->select_one("shop_goods_main","id=".$goods_detail['goods_id']."");
+
+
         $price =$goods_detail['price'] * $nums;
         if($address_id == 0){
             $user_address = $obj->select_one("shop_user_address","user_id=$user_id and if_default=0");
@@ -168,7 +168,16 @@ class apiCtrl extends base
         }else{
             $goods_detail['address'] = array();
         }
-        echo json_encode( $goods_detail );
+        if($goods_detail['discount'] <= 0){
+            $goods_detail['code'] = -1;
+            $goods_detail['msg'] = '库存不足';
+        }else{
+            $goods_detail['code'] = 200;
+            $goods_detail['msg'] = '创建订单';
+            echo json_encode( $goods_detail );
+        }
+
+
     }
 
 
