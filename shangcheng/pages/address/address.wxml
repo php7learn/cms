@@ -1,7 +1,7 @@
 <!--pages/address/address.wxml-->
 <view class='oc-add-address' bindtap='addAddress'>
   <image src='../../img/jia.png'></image>
-  手动添加收货地址
+  选择收货地址
   <view class='g-c-right'>
     <image src='../../img/r.png'></image>
   </view>
@@ -9,10 +9,10 @@
 <view class='oc-add-address'>
   <text class='iconfont icon-dibiao'></text>
   <view class='address-main'>
-    <view>纯属巧合
-      <text>151000000</text>
+    <view>{{address.userName}}
+      <text>{{address.telNumber}}</text>
     </view>
-    <view>北京市区海淀区中关村大街38号</view>
+    <view>{{address.provinceName}} {{address.cityName}} {{address.countyName}} {{address.detailInfo}}</view>
   </view>
 </view>
 <image class="fengexian" src='../../img/fengexian.png'></image>
@@ -49,8 +49,8 @@
 <view class='oc-bottom-bar'>
   <view class='oc-pay-final'>
     <text class='oc-pay-title'>实付款：</text>
-    <text class='oc-final-amount'>¥117.92</text>
-    <text class='oc-final-amount'>免运费</text>
+    <text class='oc-final-amount'>¥{{total_price}}</text>
+    <text class='oc-final-amount'> </text>
   </view>
   <view class='bottom-bar-btn' bindtap='pay'>立即支付</view>
 </view>

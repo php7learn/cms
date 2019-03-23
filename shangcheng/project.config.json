@@ -13,12 +13,14 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.2",
-	"appid": "wx41d5acae6fb198ff",
+	"appid": "wxb9ccb317f23b2ae2",
 	"projectname": "shangcheng",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
 	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -37,13 +39,20 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 1,
 			"list": [
 				{
 					"id": -1,
 					"name": "详情",
 					"pathName": "pages/goods-details/goods-details",
 					"query": "id=2",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "下单支付",
+					"pathName": "pages/address/address",
+					"query": "id=3&num=2",
 					"scene": null
 				}
 			]
