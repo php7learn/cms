@@ -170,12 +170,15 @@ class apiCtrl extends base
         }
         if($goods_detail['discount'] <= 0){
             $goods_detail['code'] = -1;
+            $goods_detail['num'] = $num;
             $goods_detail['msg'] = '库存不足';
         }else{
             $goods_detail['code'] = 200;
             $goods_detail['msg'] = '创建订单';
-            echo json_encode( $goods_detail );
+            $goods_detail['num'] = $num;
+
         }
+        echo json_encode( $goods_detail );
 
 
     }
@@ -190,9 +193,7 @@ class apiCtrl extends base
         $nums = intval(string::strip_html_tags_new ( $num = isset($_GET['num']) ? (int)$_GET['num'] : 0 ));
         $address_id = intval(string::strip_html_tags_new ( $num = isset($_GET['address_id']) ? (int)$_GET['address_id'] : 0 ));
         $goods_detail = $obj->select_one("shop_goods_detail","detail_id=$detail_id");
-        if($goods_detail['discount'] <= 0){
-            echo '{"resutl":1,"msg":"库存不足"}';exit();
-        }
+
         $price =$goods_detail['price'] * $nums;
         $salt = rand(1,10000);
         $order_sn = date('YmdHis').$salt;
@@ -205,6 +206,15 @@ class apiCtrl extends base
             $list['total_price'] = $price;
         }
 
+        if($goods_detail['discount'] <= 0){
+            $list['code'] = -1;
+            $list['msg'] = '库存不足';
+        }else{
+            $goods_detail['code'] = 200;
+            $goods_detail['msg'] = '订单生成成功';
+
+        }
+
         echo json_encode( $list );
     }
 
@@ -214,24 +224,7 @@ class apiCtrl extends base
         $notify = new NativePay();
         $input = new WxPayUnifiedOrder();
 
-        //$total_fee = "1";//测试值，实际使用注释掉
-        $out_trade_no = WxPayConfig::MCHID.date("YmdHis").rand(10,99);
-        $time_start = date("YmdHis");
-        $goods_tag = "vip30";
-        $trade_type = "NATIVE";
-        $product_id = isset($p_code)?$p_code:$product;//测试值，根据实际情况改变
-        $input->SetBody($body);
-        $input->SetAttach($attach);
-        $input->SetOut_trade_no($out_trade_no);
-        $input->SetTotal_fee($total_fee);
-        $input->SetGoods_tag($goods_tag);
-        $input->SetDetail($goods_detail);
-        $input->SetTime_start($time_start);
-        $input->SetTime_expire(date("YmdHis", time() + 600));
-        $input->SetNotify_url("http://pay.doc88.com/payment/client/response.php");
-        $input->SetTrade_type($trade_type);
-        $input->SetProduct_id($product_id);
-        $result = $notify->GetPayUrl($input);
+
 
     }
 
