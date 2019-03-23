@@ -35,8 +35,8 @@
               <div class="cmdlist-text">
                 <p class="info"><{$val.title}></p>
                 <div class="price">
-                    <b><{$val.discount}></b>
-                    <p>¥<del><{$val.price}></del></p>
+                    <b>¥<{$val.price}></b>
+                    <!-- <p>¥<del><{$val.price}></del></p> -->
                     <!-- <span class="flow">
                       <i class="layui-icon layui-icon-rate"></i>
                       433
@@ -48,16 +48,30 @@
     </div>
 	<{/foreach}>
 
-    <div class="layui-col-md12 layui-col-sm12">
-        <div id="demo0"></div>
-    </div>
+  </div>
+  <div class="layui-col-md12 layui-col-sm12">
+      <div id="demo0"></div>
   </div>
 </div><script>
 layui.use('laypage', function(){
 	var laypage = layui.laypage;
 	laypage.render({
-	  elem: 'demo0'
-	  ,count: 50 //数据总数
+		elem: 'demo0'
+		,count: 200 //数据总数
+		,limits: [10, 20, 30, 40, 50]
+		,limit: 10
+		,layout: ['limit','prev', 'page', 'next','count']
+		,groups: 8
+		,jump: function(obj, first){
+		    //obj包含了当前分页的所有参数，比如：
+		    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+		    console.log(obj.limit); //得到每页显示的条数
+		    
+		    //首次不执行
+		    if(!first){
+		      //do something
+		    }
+		}
 	});
 
 });
