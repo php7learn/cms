@@ -12,5 +12,17 @@
     "navigationBarBackgroundColor": "#F65959",
     "navigationBarTitleText": "旭燕堂燕窝",
     "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "商城"
+      },
+      {
+        "pagePath": "pages/logs/logs",
+        "text": "我的"
+      }
+    ]
   }
 }

@@ -52,7 +52,7 @@ page {
   margin-bottom: 5rpx;
   margin-left: 5rpx;
   margin-right: 4rpx;
-  height: 526rpx;
+  height: 480rpx;
   vertical-align: top;
   position: relative;
 }
