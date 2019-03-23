@@ -133,11 +133,16 @@ class apiCtrl extends base
 //        $res = $this->check_user();
 
         $user_id=1;
-        $id = intval(string::strip_html_tags_new ( $id = isset($_GET['id']) ? (int)$_GET['id'] : 0 ));
-        $num = intval(string::strip_html_tags_new ( $num = isset($_GET['num']) ? (int)$_GET['num'] : 0 ));
+        $goods_id = intval(string::strip_html_tags_new ( $id = isset($_GET['goods_id']) ? (int)$_GET['goods_id'] : 0 ));
+        $detail_id = intval(string::strip_html_tags_new ( $id = isset($_GET['detail_id']) ? (int)$_GET['detail_id'] : 0 ));
+        $nums = intval(string::strip_html_tags_new ( $num = isset($_GET['num']) ? (int)$_GET['num'] : 0 ));
         $address_id = intval(string::strip_html_tags_new ( $num = isset($_GET['address_id']) ? (int)$_GET['address_id'] : 0 ));
-        $goods_detail = $obj->select_one("shop_goods_detail","detail_id=$id");
-        $price =$goods_detail['price'] * $num;
+        $goods_detail = $obj->select_one("shop_goods_detail","detail_id=$detail_id");
+        $goods_main = $obj->select_one("shop_goods_main","id=$goods_id");
+        if($goods_detail['discount'] <= 0){
+            echo '{"resutl":1,"msg":"库存不足"}';exit();
+        }
+        $price =$goods_detail['price'] * $nums;
         if($address_id == 0){
             $user_address = $obj->select_one("shop_user_address","user_id=$user_id and if_default=0");
         }else{
@@ -147,21 +152,15 @@ class apiCtrl extends base
         if($id <= 0){
             echo '{"resutl":1,"msg":"输入错误"}';exit();
         }
+        $goods_detail['total_price'] = $price;
+        $goods_detail['main_title'] = $goods_main['title'];
+        $goods_detail['main_image'] = $goods_main['image'];
         if($user_address){
-            $goods_detail['total_price'] = $price;
             $goods_detail['address'] = $user_address;
         }else{
             $goods_detail['address'] = array();
         }
         echo json_encode( $goods_detail );
-
-
-
-
-
-
-
-
     }
 
 
