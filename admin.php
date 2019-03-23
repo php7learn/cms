@@ -50,12 +50,12 @@ class adminCtrl extends base
     {
         require_once 'classes/admin.class.php';
          
-        $question = new adminClass();
-        $id = isset($_GET['id']) ? $_GET['id'] : 1 ;
-        $res = $question->select_one("shop_goods_main","id='$id'");
-        //         print_r($res);
-        $this->tpl->assign("test", "test");
+        $obj = new adminClass();
+        $list = $obj->get_goods();
+        $this->tpl->assign("list", $list);
         $this->tpl->display("goodslist.html");
+    }
+    function good_edit(){
     }
     function index()
     {
