@@ -170,12 +170,12 @@ class apiCtrl extends base
         }
         if($goods_detail['discount'] <= 0){
             $goods_detail['code'] = -1;
-            $goods_detail['num'] = $num;
+            $goods_detail['num'] = $nums;
             $goods_detail['msg'] = '库存不足';
         }else{
             $goods_detail['code'] = 200;
             $goods_detail['msg'] = '创建订单';
-            $goods_detail['num'] = $num;
+            $goods_detail['num'] = $nums;
 
         }
         echo json_encode( $goods_detail );
