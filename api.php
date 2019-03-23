@@ -36,9 +36,17 @@ class apiCtrl extends base
             case 'get_address':
                 $this->get_address();
                 break;
-                //订单列表
+                //订单详情
             case 'get_goods_order':
                 $this->get_goods_order();
+                break;
+                //创建订单
+            case 'get_goods_create_order':
+                $this->get_goods_create_order();
+                break;
+                //支付
+            case "get_goods_pay":
+                $this->get_goods_pay();
                 break;
             default:
                 $this->index();
@@ -161,6 +169,61 @@ class apiCtrl extends base
             $goods_detail['address'] = array();
         }
         echo json_encode( $goods_detail );
+    }
+
+
+    private function get_goods_create_order(){
+        require_once 'classes/index.class.php';
+        $obj = new indexClass();
+        require_once 'classes/String.class.php';
+        $user_id = 1;
+        $detail_id = intval(string::strip_html_tags_new ( $id = isset($_GET['detail_id']) ? (int)$_GET['detail_id'] : 0 ));
+        $nums = intval(string::strip_html_tags_new ( $num = isset($_GET['num']) ? (int)$_GET['num'] : 0 ));
+        $address_id = intval(string::strip_html_tags_new ( $num = isset($_GET['address_id']) ? (int)$_GET['address_id'] : 0 ));
+        $goods_detail = $obj->select_one("shop_goods_detail","detail_id=$detail_id");
+        if($goods_detail['discount'] <= 0){
+            echo '{"resutl":1,"msg":"库存不足"}';exit();
+        }
+        $price =$goods_detail['price'] * $nums;
+        $salt = rand(1,10000);
+        $order_sn = date('YmdHis').$salt;
+        $time = time();
+        $res = $obj->insert_sql("insert into shop_user_order(user_id,detail_id,address_id,order_sn,create_time,money) values('$user_id','$detail_id','$address_id','$order_sn','$time','$price')");
+        $list = array();
+        if($res){
+            $list['id'] = $res;
+            $list['order_sn'] = $order_sn;
+            $list['total_price'] = $price;
+        }
+
+        echo json_encode( $list );
+    }
+
+    private function get_goods_pay(){
+        require_once "../payment/client/WxPay.Api.php";
+        require_once "../payment/client/WxPay.NativePay.php";
+        $notify = new NativePay();
+        $input = new WxPayUnifiedOrder();
+
+        //$total_fee = "1";//测试值，实际使用注释掉
+        $out_trade_no = WxPayConfig::MCHID.date("YmdHis").rand(10,99);
+        $time_start = date("YmdHis");
+        $goods_tag = "vip30";
+        $trade_type = "NATIVE";
+        $product_id = isset($p_code)?$p_code:$product;//测试值，根据实际情况改变
+        $input->SetBody($body);
+        $input->SetAttach($attach);
+        $input->SetOut_trade_no($out_trade_no);
+        $input->SetTotal_fee($total_fee);
+        $input->SetGoods_tag($goods_tag);
+        $input->SetDetail($goods_detail);
+        $input->SetTime_start($time_start);
+        $input->SetTime_expire(date("YmdHis", time() + 600));
+        $input->SetNotify_url("http://pay.doc88.com/payment/client/response.php");
+        $input->SetTrade_type($trade_type);
+        $input->SetProduct_id($product_id);
+        $result = $notify->GetPayUrl($input);
+
     }
 
 
