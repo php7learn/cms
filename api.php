@@ -219,10 +219,7 @@ class apiCtrl extends base
     }
 
     private function get_goods_pay(){
-        require_once "../payment/client/WxPay.Api.php";
-        require_once "../payment/client/WxPay.NativePay.php";
-        $notify = new NativePay();
-        $input = new WxPayUnifiedOrder();
+
 
 
 
