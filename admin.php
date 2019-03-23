@@ -19,6 +19,9 @@ class adminCtrl extends base
             case 'goods':
                 $this->goods_list();
                 break;
+            case 'goods_page':
+                $this->goods_list_page();
+                break;
             default:
                 $this->index();
         }
@@ -51,9 +54,18 @@ class adminCtrl extends base
         require_once 'classes/admin.class.php';
          
         $obj = new adminClass();
+        $count = $obj->get_goods_count();
+        $this->tpl->assign("list", $count);
+        $this->tpl->display("goodslist.html");
+    }
+    function goods_list_page()
+    {
+        require_once 'classes/admin.class.php';
+        
+        $obj = new adminClass();
         $list = $obj->get_goods();
         $this->tpl->assign("list", $list);
-        $this->tpl->display("goodslist.html");
+        $this->tpl->display("goodslistpage.html");
     }
     function good_edit(){
     }
