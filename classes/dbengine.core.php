@@ -111,6 +111,20 @@ class dbengine{
             echo $this->link->error;
             return false;
         }
+
+        if($this->debug){
+            echo '<hr>执行SQL:'.$sql."<br>\n";
+            if($res){
+                printf("查询行数 (select): %d<br>\n", $num);
+                if($num){
+                    echo "查询结果：";
+                    print_r($result);
+                }
+            }else{
+                printf("查询失败: %s\n", $this->link->error);
+            }
+        }
+
         if($num){
             return $result;
         }else{
