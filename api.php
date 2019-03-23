@@ -236,7 +236,7 @@ class apiCtrl extends base
         $countyName = string::strip_html_tags_new ( $countyName = isset($_POST['countyName']) ? $_POST['countyName'] : '' );
         $detailInfo = string::strip_html_tags_new ( $detailInfo = isset($_POST['detailInfo']) ? $_POST['detailInfo'] : '' );
         $errMsg = string::strip_html_tags_new ( $errMsg = isset($_POST['errMsg']) ? $_POST['errMsg'] : '' );
-        $notionalCode = string::strip_html_tags_new ( $notionalCode = isset($_POST['notionalCode']) ? $_POST['notionalCode'] : '' );
+        $nationalCode = string::strip_html_tags_new ( $nationalCode = isset($_POST['nationalCode']) ? $_POST['nationalCode'] : '' );
         $postalCode = string::strip_html_tags_new ( $postalCode= isset($_POST['postalCode']) ? $_POST['postalCode'] : '' );
         $provinceName = string::strip_html_tags_new ( $provinceName= isset($_POST['provinceName']) ? $_POST['provinceName'] : '' );
         $telNumber = string::strip_html_tags_new ( $telNumber= isset($_POST['telNumber']) ? $_POST['telNumber'] : '' );
@@ -248,8 +248,7 @@ class apiCtrl extends base
             echo '{"resutl":1,"msg":"手机号码为空"}';exit();
         }
         if($type == 0){
-            $res = $obj->insert_sql("insert into shop_user_address(cityName,countyName,detailInfo,errMsg,notionalCode,postalCode,provinceName,telNumber,userName,user_id,create_time) values('$cityName','$countyName','$detailInfo','$errMsg','$notionalCode','$postalCode','$provinceName','$telNumber','$userName','$user_id','$time')");
-            echo "insert into shop_user_address(cityName,countyName,detailInfo,errMsg,notionalCode,postalCode,provinceName,telNumber,userName,user_id,create_time) values('$cityName','$countyName','$detailInfo','$errMsg','$notionalCode','$postalCode','$provinceName','$telNumber','$userName','$user_id','$time')";
+            $res = $obj->insert_sql("insert into shop_user_address(cityName,countyName,detailInfo,errMsg,nationalCode,postalCode,provinceName,telNumber,userName,user_id,create_time) values('$cityName','$countyName','$detailInfo','$errMsg','$nationalCode','$postalCode','$provinceName','$telNumber','$userName','$user_id','$time')");
             if($res){
                 echo '{"resutl":"'.$res.'","msg":"新增地址成功"}';exit();
             }else{
