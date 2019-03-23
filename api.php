@@ -36,7 +36,10 @@ class apiCtrl extends base
             case 'get_address':
                 $this->get_address();
                 break;
-                //购物车
+                //订单列表
+            case 'get_goods_order':
+                $this->get_goods_order();
+                break;
             default:
                 $this->index();
         }
@@ -72,7 +75,9 @@ class apiCtrl extends base
         $obj = new indexClass();
 
         require_once 'classes/String.class.php';
-        $catelog = intval(string::strip_html_tags_new ( $weight = isset($_GET['catelog']) ? (int)$_GET['catelog'] : 0 ));
+//        $tokenId = string::strip_html_tags_new ( $tokenId = isset($_POST['tokenId']) ? $_POST['tokenId'] : '' );
+//        $res = $this->check_user();
+        $catelog = intval(string::strip_html_tags_new ( $catelog = isset($_GET['catelog']) ? (int)$_GET['catelog'] : 0 ));
         if($catelog == 0){
             $list = $obj->select("shop_goods_main");
             echo json_encode( $list );
@@ -93,7 +98,9 @@ class apiCtrl extends base
         $obj = new indexClass();
 //         $obj->debug=true;
         require_once 'classes/String.class.php';
-        $id = intval(string::strip_html_tags_new ( $weight = isset($_GET['id']) ? (int)$_GET['id'] : 0 ));
+        $id = intval(string::strip_html_tags_new ( $id = isset($_GET['id']) ? (int)$_GET['id'] : 0 ));
+//        $tokenId = string::strip_html_tags_new ( $tokenId = isset($_POST['tokenId']) ? $_POST['tokenId'] : '' );
+//        $res = $this->check_user();
         if($id <= 0){
             echo '{"resutl":1,"msg":"输入错误"}';exit();
         }
@@ -117,6 +124,43 @@ class apiCtrl extends base
         }
         
         echo json_encode( $info );
+    }
+
+    private function get_goods_order(){
+        require_once 'classes/index.class.php';
+        $obj = new indexClass();
+        require_once 'classes/String.class.php';
+//        $res = $this->check_user();
+
+        $user_id=1;
+        $goods_id = intval(string::strip_html_tags_new ( $id = isset($_GET['goods_id']) ? (int)$_GET['goods_id'] : 0 ));
+        $detail_id = intval(string::strip_html_tags_new ( $id = isset($_GET['detail_id']) ? (int)$_GET['detail_id'] : 0 ));
+        $nums = intval(string::strip_html_tags_new ( $num = isset($_GET['num']) ? (int)$_GET['num'] : 0 ));
+        $address_id = intval(string::strip_html_tags_new ( $num = isset($_GET['address_id']) ? (int)$_GET['address_id'] : 0 ));
+        $goods_detail = $obj->select_one("shop_goods_detail","detail_id=$detail_id");
+        $goods_main = $obj->select_one("shop_goods_main","id=$goods_id");
+        if($goods_detail['discount'] <= 0){
+            echo '{"resutl":1,"msg":"库存不足"}';exit();
+        }
+        $price =$goods_detail['price'] * $nums;
+        if($address_id == 0){
+            $user_address = $obj->select_one("shop_user_address","user_id=$user_id and if_default=0");
+        }else{
+            $user_address = $obj->select_one("shop_user_address","user_id=$user_id and address_id=$address_id");
+        }
+
+        if($id <= 0){
+            echo '{"resutl":1,"msg":"输入错误"}';exit();
+        }
+        $goods_detail['total_price'] = $price;
+        $goods_detail['main_title'] = $goods_main['title'];
+        $goods_detail['main_image'] = $goods_main['image'];
+        if($user_address){
+            $goods_detail['address'] = $user_address;
+        }else{
+            $goods_detail['address'] = array();
+        }
+        echo json_encode( $goods_detail );
     }
 
 
