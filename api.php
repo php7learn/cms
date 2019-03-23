@@ -242,8 +242,8 @@ class apiCtrl extends base
         $provinceName = string::strip_html_tags_new ( $provinceName= isset($_POST['provinceName']) ? $_POST['provinceName'] : '' );
         $telNumber = string::strip_html_tags_new ( $telNumber= isset($_POST['telNumber']) ? $_POST['telNumber'] : '' );
         $userName = string::strip_html_tags_new ( $userName= isset($_POST['userName']) ? $_POST['userName'] : '' );
-        $address_id =intval(string::strip_html_tags_new ( $address_id = isset($_GET['address_id']) ? (int)$_GET['address_id'] : 0 ));
-        $user_id =intval(string::strip_html_tags_new ( $user_id = isset($_GET['user_id']) ? (int)$_GET['user_id'] : 0 ));
+        $address_id =intval(string::strip_html_tags_new ( $address_id = isset($_POST['address_id']) ? (int)$_POST['address_id'] : 0 ));
+        $user_id =intval(string::strip_html_tags_new ( $user_id = isset($_POST['user_id']) ? (int)$_POST['user_id'] : 0 ));
         $time = time();
         if(empty( $telNumber ) && $type != 2){
             echo '{"resutl":1,"msg":"手机号码为空"}';exit();
