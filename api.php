@@ -257,7 +257,7 @@ class apiCtrl extends base
 
         }
         if($type == 1){
-            $res = $obj->update_sql("update shop_user_address set cityName='$cityName',countyName='$countyName',detailInfo='$detailInfo',errMsg='$errMsg',notionalCode='$notionalCode',postalCode='$postalCode',provinceName='$provinceName',telNumber='$telNumber',userName='$userName',update_time='$time' where address_id='$address_id' and user_id='$user_id'");
+            $res = $obj->update_sql("update shop_user_address set cityName='$cityName',countyName='$countyName',detailInfo='$detailInfo',errMsg='$errMsg',nationalCode='$nationalCode',postalCode='$postalCode',provinceName='$provinceName',telNumber='$telNumber',userName='$userName',update_time='$time' where address_id='$address_id' and user_id='$user_id'");
             if($res){
                 echo '{"resutl":0,"msg":"更新地址成功"}';exit();
             }else{
