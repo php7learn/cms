@@ -232,19 +232,24 @@ class apiCtrl extends base
         $obj = new indexClass();
         require_once 'classes/String.class.php';
 
-        $type =intval(string::strip_html_tags_new ( $weight = isset($_GET['type']) ? (int)$_GET['type'] : 0 ));
-        $addr = string::strip_html_tags_new ( $weight = isset($_POST['address']) ? $_POST['address'] : '' );
-        $phone = string::strip_html_tags_new ( $weight = isset($_POST['phone']) ? $_POST['phone'] : '' );
-        $name = string::strip_html_tags_new ( $weight = isset($_POST['name']) ? $_POST['name'] : '' );
-        $user_id = intval(string::strip_html_tags_new ( $weight = isset($_POST['user_id']) ? (int)$_POST['user_id'] : '' ));
-        $post_code = string::strip_html_tags_new ( $weight = isset($_POST['post_code']) ? $_POST['post_code'] : '' );
-        $address_id = intval(string::strip_html_tags_new ( $weight = isset($_GET['address_id']) ? (int)$_GET['address_id'] : '' ));
+        $type =intval(string::strip_html_tags_new ( $type = isset($_GET['type']) ? (int)$_GET['type'] : 0 ));
+        $cityName = string::strip_html_tags_new ( $cityName = isset($_POST['cityName']) ? $_POST['cityName'] : '' );
+        $countyName = string::strip_html_tags_new ( $countyName = isset($_POST['countyName']) ? $_POST['countyName'] : '' );
+        $detailInfo = string::strip_html_tags_new ( $detailInfo = isset($_POST['detailInfo']) ? $_POST['detailInfo'] : '' );
+        $errMsg = string::strip_html_tags_new ( $errMsg = isset($_POST['errMsg']) ? $_POST['errMsg'] : '' );
+        $notionalCode = string::strip_html_tags_new ( $notionalCode = isset($_POST['notionalCode']) ? $_POST['notionalCode'] : '' );
+        $postalCode = string::strip_html_tags_new ( $postalCode= isset($_POST['postalCode']) ? $_POST['postalCode'] : '' );
+        $provinceName = string::strip_html_tags_new ( $provinceName= isset($_POST['provinceName']) ? $_POST['provinceName'] : '' );
+        $telNumber = string::strip_html_tags_new ( $telNumber= isset($_POST['telNumber']) ? $_POST['telNumber'] : '' );
+        $userName = string::strip_html_tags_new ( $userName= isset($_POST['userName']) ? $_POST['userName'] : '' );
+        $address_id =intval(string::strip_html_tags_new ( $address_id = isset($_GET['address_id']) ? (int)$_GET['address_id'] : 0 ));
+        $user_id =intval(string::strip_html_tags_new ( $user_id = isset($_GET['user_id']) ? (int)$_GET['user_id'] : 0 ));
         $time = time();
-        if(empty( $phone ) && $type != 2){
+        if(empty( $telNumber ) && $type != 2){
             echo '{"resutl":1,"msg":"手机号码为空"}';exit();
         }
         if($type == 0){
-            $res = $obj->insert_sql("insert into shop_user_address(name,address,user_id,post_code,phone,create_time) values('$name','$addr','$user_id','$post_code','$phone','$time')");
+            $res = $obj->insert_sql("insert into shop_user_address(cityName,countyName,detailInfo,errMsg,notionalCode,postalCode,provinceName,telNumber,userName,user_id,create_time) values('$cityName','$countyName','$detailInfo','$errMsg','$notionalCode','$postalCode','$provinceName','$telNumber','$userName','$user_id','$time')");
             if($res){
                 echo '{"resutl":"'.$res.'","msg":"新增地址成功"}';exit();
             }else{
@@ -253,7 +258,7 @@ class apiCtrl extends base
 
         }
         if($type == 1){
-            $res = $obj->update_sql("update shop_user_address set name='$name',address='$addr',phone='$phone',post_code='$post_code',update_time='$time' where address_id='$address_id' and user_id='$user_id'");
+            $res = $obj->update_sql("update shop_user_address set cityName='$cityName',countyName='$countyName',detailInfo='$detailInfo',errMsg='$errMsg',notionalCode='$notionalCode',postalCode='$postalCode',provinceName='$provinceName',telNumber='$telNumber',userName='$userName',update_time='$time' where address_id='$address_id' and user_id='$user_id'");
             if($res){
                 echo '{"resutl":0,"msg":"更新地址成功"}';exit();
             }else{
