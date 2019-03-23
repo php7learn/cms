@@ -1,14 +1,14 @@
 <view class='pdd-slide'>
-  <image src='http://mcdn.pinduoduo.com/assets/img/mpdd_banner_5.jpg'></image>
+  <image src='/img/banner1.png'></image>
 </view>
 
 <scroll-view scroll-x class="swiper-tab {{top>140? 'topnav' : ''}}">
   <view class="swiper-tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">推荐</view>
-  <view class="swiper-tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">女装</view>
-  <view class="swiper-tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="clickTab">百货</view>
-  <view class="swiper-tab-item {{currentTab==3?'active':''}}" data-current="3" bindtap="clickTab">箱包</view>
-  <view class="swiper-tab-item {{currentTab==4?'active':''}}" data-current="4" bindtap="clickTab">食品</view>
-  <view class="swiper-tab-item {{currentTab==5?'active':''}}" data-current="5" bindtap="clickTab">男装</view>
+  <view class="swiper-tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">燕窝</view>
+  <view class="swiper-tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="clickTab">花胶</view>
+  <view class="swiper-tab-item {{currentTab==3?'active':''}}" data-current="3" bindtap="clickTab">美妆</view>
+  <view class="swiper-tab-item {{currentTab==4?'active':''}}" data-current="4" bindtap="clickTab"> </view>
+  <view class="swiper-tab-item {{currentTab==5?'active':''}}" data-current="5" bindtap="clickTab"> </view>
 </scroll-view>
 
 <view class='swiperList-list' wx:if="{{currentTab==0}}">
@@ -19,12 +19,11 @@
       <image src='{{item.image}}'></image>
       <view class='goods-name'>
         {{item.title}}</view>
-      <view class='goods-tag'>满93减2</view>
       <view class='buy-box'>
         <text class='detail'>
                 <text class='price-icon'>¥</text>
-        <text class='price'>{{item.discount}}</text>
-        <text class='buy-tips'>原价¥{{item.price}}</text>
+        <text class='price'>{{item.price}}</text>
+        <text class='buy-tips'> 余{{item.discount}}</text>
         </text>
         <text class='go-buy-button'>抢</text>
       </view>

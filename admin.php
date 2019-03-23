@@ -22,6 +22,9 @@ class adminCtrl extends base
             case 'goods_page':
                 $this->goods_list_page();
                 break;
+            case 'good_edit':
+                $this->good_edit();
+                break;
             default:
                 $this->index();
         }
@@ -43,7 +46,7 @@ class adminCtrl extends base
         require_once 'classes/admin.class.php';
          
         $question = new adminClass();
-        $id = isset($_GET['id']) ? $_GET['id'] : 1 ;
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 1 ;
         $res = $question->select_one("shop_goods_main","id='$id'");
         //         print_r($res);
         $this->tpl->assign("test", "test");
@@ -55,7 +58,7 @@ class adminCtrl extends base
          
         $obj = new adminClass();
         $count = $obj->get_goods_count();
-        $this->tpl->assign("list", $count);
+        $this->tpl->assign("count", $count);
         $this->tpl->display("goodslist.html");
     }
     function goods_list_page()
@@ -63,11 +66,24 @@ class adminCtrl extends base
         require_once 'classes/admin.class.php';
         
         $obj = new adminClass();
-        $list = $obj->get_goods();
+        if(isset($_GET['page']) && $_GET['page']>0){
+            $page = (int)$_GET['page'];
+        }else{
+            $page = 1;
+        }
+        if(isset($_GET['limit']) && $_GET['limit']>0){
+            $limit = (int)$_GET['limit'];
+        }else{
+            $limit = 10;
+        }
+        $list = $obj->get_goods($page,$limit);
+        $num = count($list);
         $this->tpl->assign("list", $list);
+        $this->tpl->assign("num", $num);
         $this->tpl->display("goodslistpage.html");
     }
     function good_edit(){
+        $this->tpl->display("goodedit.html");
     }
     function index()
     {

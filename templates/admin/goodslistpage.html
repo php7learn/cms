@@ -1,0 +1,26 @@
+ <{if $num gt 0}>
+  <{foreach from=$list item=val key=key}>
+    <div class="layui-col-md2 layui-col-sm4">
+        <div class="cmdlist-container">
+            <a href="/admin.php?act=edit&id=<{$val.id}>">
+              <img src="<{$val.image}>"> 
+            </a>
+            <a href="/admin.php?act=edit&id=<{$val.id}>">
+              <div class="cmdlist-text">
+                <p class="info"><{$val.title}></p>
+                <div class="price">
+                    <b>¥<{$val.price}></b>
+                    <!-- <p>¥<del><{$val.price}></del></p> -->
+                    <!-- <span class="flow">
+                      <i class="layui-icon layui-icon-rate"></i>
+                      433
+                    </span> -->
+                </div>
+              </div>
+            </a>
+        </div>
+    </div>
+	<{/foreach}>
+<{else}>
+无更多结果！
+<{/if}>

@@ -70,14 +70,19 @@ image.fengexian {
  .oc-goods-name{
     position: relative;
     color: #151516;  
-    font-size: 26rpx;
+    font-size: 38rpx;
+    line-height:40rpx;
+    height:40rpx;
+    overflow:hidden;
 }
 .specification-item{
   color: #999;
-  font-size: 24rpx;
+  font-size: 30rpx;
+  margin-top:20rpx;
 }
 .oc-goods-price{
-  font-size: 28rpx;
+  font-size: 30rpx;
+  margin-top:20rpx;
 }
 .oc-goods-label{
   color: #339B29;

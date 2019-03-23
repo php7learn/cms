@@ -92,7 +92,38 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that=this
+    if (options.id>0&&options.num>0){
+      var tokenid = app.gettoken(function (cbdata) {
+        tokenid = cbdata.tokenid
+        wx.request({
+          url: app.globalData.baseurl,
+          data: {
+            act: 'get_goods_order',
+            tokenid: encodeURI(tokenid),
+            detail_id: options.id,
+            num: options.num
+          }, 
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function (data) {
+            console.log("data", data)
+            data = data.data;
+            that.setData({
+              main_title: data.main_title,
+              detail_id: data.detail_id,
+              discount: data.discount,
+              goods_id: data.goods_id,
+              main_image: data.main_image,
+              name: data.name,
+              price: data.price,
+              total_price: data.total_price,
+            })
+          }
+        })
+      });
+    }
   },
 
   /**

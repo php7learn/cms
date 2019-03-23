@@ -1,92 +1,84 @@
 <!--pages/goods-details/goods-details.wxml-->
 <view class='goods-islide'>
-    <image src='{{image}}'></image>
+  <image src='{{image}}'></image>
 </view>
 <view class='g-price-group'>
-    <view class='g-group-price'>¥
-        <text class='price-range'>{{discount}}</text>
-        <text class='qi'> </text>
-        <text class='g-market-price'> ¥ {{price}}</text>
-    </view>
-    <view class='g-sales'>剩余：5000</view>
+  <view class='g-group-price'>¥
+    <text class='price-range'>{{price}}</text>
+    <text class='qi'> </text>
+  </view>
+  <view class='g-sales'>剩余：{{discount}}</view>
 </view>
 <view class='g-name-new'>
-  <view class='goods-name-content'>【太暖和了】口罩女冬季保暖透气护耳口罩保暖儿童护耳罩</view>
+  <view class='goods-name-content'>{{title}}</view>
   <view class='goods-header-2'>
-      <view class='g-c-text'>全场包邮 · 7天退换  ·  48小时发货</view>
-      <view class='g-c-right'> 
-        <image src='../../img/r.png'></image>
-      </view>
+    <view class='g-c-text'>全场包邮 · 7天退换 · 48小时发货</view>
   </view>
 </view>
 
 
 <view class='goods-details'>
-        商品详情
-        <view class='goods-details-info'>
-        厂家直销,产品数量有 ,20只,50只,100只,XS是小小号, S号是小号, M号是中号, L号是大号。平常成年女性用S号, 成年男人用M号 ,手大的男人用L号。描述里有准确尺码图。
-        </view> 
+  商品详情
 </view>
 <view class='img-details'>
-          <image class='' src='../../img/3.jpeg'></image>
-           <image class='' src='../../img/4.jpeg'></image>
+  <block wx:for="{{info}}" wx:for-index="idx" wx:for-item="item" wx:key="unique">
+    <view class='info-content' wx:if="{{item.type==0}}">{{item.info}}</view>
+    <image wx:if="{{item.type==1}}" class='' src='{{item.info}}'></image>
+  </block>
 </view>
-  <!-- 购买弹窗 -->
+<!-- 购买弹窗 -->
 <view class='buypop' wx:if="{{chooseSize}}" animation='{{animationData}}'>
-    <view class='pop-show'>
-        <view class='pop-head'>
-            <view class='pop-head-img'>
-              <image class='' src='../../img/4.jpeg'></image>
-            </view>
-            <view class='clos' bindtap='hideModal'>X</view>
-            <view class='pop-head-content'>
-               <view class='rmb'>¥128</view> 
-               <view class='goods-elect'>请选择 颜色分类 尺码</view>
-            </view>
-        </view>
-        <view class='pop-content'>
-          <view class='pop-content-title'>颜色分类</view>
-          <text  class="colour {{selectstyle==0?'active':''}}" data-area="0" bindtap="changeArea">1002黑色</text>
-          <text   class="colour {{selectstyle==1?'active':''}}" data-area="1" bindtap="changeArea">1003军绿</text>   
-          <text   class="colour {{selectstyle==2?'active':''}}" data-area="2" bindtap="changeArea">1005红色</text>
-        </view>
-        <view class='pop-content'>
-          <view class='pop-content-title'>尺码</view>
-              <text  class="colour {{changesize==0?'active':''}}" data-area="0" bindtap="changesize">X（建议小号）</text>
-              <text   class="colour {{changesize==1?'active':''}}" data-area="1" bindtap="changesize">L（建议中号）</text>   
-              <text   class="colour {{changesize==2?'active':''}}" data-area="2" bindtap="changesize">XL</text>
-        </view>
-        <view class='pop-content'>
-           <view class='pop-content-num'>数量</view>
-          <view class='stepper'>
-              <text class='{{minusStatus}}' type='number'  bindtap='bindMinus'>-</text>
-              <input bindinput='bindManual' value='{{num}}'></input>
-              <text bindtap='bindPlus'>+</text>
-          </view>
-          <!-- <view class='number'>
+  <view class='pop-show'>
+    <view class='pop-head'>
+      <view class='pop-head-img'>
+        <image class='' wx:if="{{showname!=''}}" src="{{showimg}}"></image>
+      </view>
+      <view class='clos' bindtap='hideModal'>X</view>
+      <view class='pop-head-content'>
+        <view class='rmb'>¥{{showpricesum}}</view>
+        <view class='goods-elect' wx:if="{{showname==''}}">请选择需要购买的规格</view>
+        <view class='goods-elect' wx:if="{{showname!=''}}">{{showname}}</view>
+      </view>
+    </view>
+    <view class='pop-content'>
+      <view class='pop-content-title'>商品规格</view>
+      <block wx:for="{{detail}}" wx:for-index="idx" wx:for-item="item" wx:key="unique">
+        <view class='info-content' wx:if="{{item.type==0}}">{{item.info}}</view>
+        <image wx:if="{{item.type==1}}" class='' src='{{item.info}}'></image>
+        <text class="colour {{selectedid==item.detail_id?'active':''}}" data-name="{{item.name}}" data-price="{{item.price}}" data-area="{{item.detail_id}}" wx:if='{{item.discount>0}}' bindtap="changeArea">{{item.name}}</text>
+
+        <text class="colour {{selectedid==item.detail_id?'active':''}}" data-name="{{item.name}}" data-discount="{{item.discount}}" data-price="{{item.price}}" data-area="{{item.detail_id}}" wx:if='{{item.discount==0}}' bindtap="changeArea">{{item.name}}</text>
+      </block>
+
+    </view>
+    <view class='pop-content'>
+      <view class='pop-content-num'>数量</view>
+      <view class='stepper'>
+        <text class='{{minusStatus}}' type='number' bindtap='bindMinus'>-</text>
+        <input bindinput='bindManual' value='{{num}}'></input>
+        <text bindtap='bindPlus'>+</text>
+      </view>
+      <!-- <view class='number'>
               <text bindtap='reduce'>-</text>
               <text>{{goodsnumber}}</text>
               <text bindtap='increase'>+</text>
           </view> -->
-        </view>
-        <button type="warn" class='confirm' bindtap='confirm'>确定</button>
-    </view> 
+    </view>
+    <button type="warn" class='confirm' bindtap='confirm'>确定</button>
+  </view>
 </view>
 <view class='goods-bottom-bar'>
-        <view class='gengduo'>
-             <text class='iconfont icon-zhuye'></text>
-            主页
-        </view>
-        <view class='shoucang'>
-             <text class='iconfont icon-shoucang'></text>
-        收藏</view>
-          <view class='kefu'>
-           <text class='iconfont icon-kefu'></text>
-            客服
-          </view>
+  <view class='gengduo'>
+    <text class='iconfont icon-zhuye'></text> 主页
+  </view>
+  <view class='shoucang'>
+    <text class='iconfont icon-shoucang'></text> 收藏
+  </view>
+  <view class='kefu'>
+    <text class='iconfont icon-kefu'></text> 客服
+  </view>
 
-          <view class='gobuy'  bindtap='chooseSize'>
-            <view>¥ 9.9</view> 
-            购买</view>
+  <view class='gobuy' bindtap='chooseSize'>
+    <view>¥ {{discount}}</view>
+    立即购买</view>
 </view>
-
