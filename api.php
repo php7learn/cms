@@ -231,8 +231,6 @@ class apiCtrl extends base
         require_once 'classes/index.class.php';
         $obj = new indexClass();
         require_once 'classes/String.class.php';
-        var_dump($_GET);
-        var_dump($_POST);exit;
         $type =intval(string::strip_html_tags_new ( $type = isset($_GET['type']) ? (int)$_GET['type'] : 0 ));
         $cityName = string::strip_html_tags_new ( $cityName = isset($_POST['cityName']) ? $_POST['cityName'] : '' );
         $countyName = string::strip_html_tags_new ( $countyName = isset($_POST['countyName']) ? $_POST['countyName'] : '' );
