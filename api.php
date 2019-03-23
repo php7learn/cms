@@ -36,6 +36,7 @@ class apiCtrl extends base
             case 'get_address':
                 $this->get_address();
                 break;
+                //购物车
             default:
                 $this->index();
         }
@@ -100,8 +101,12 @@ class apiCtrl extends base
 //         print_r($info);
         $condition = array("where"=>"goods_id=$id","order"=>"desc_id asc");
         $list = $obj->select("shop_goods_desc",$condition);
+        $desc = $obj->get_array("select * from shop_goods_desc where goods_id=$id");
+        $detail = $obj->get_array("select * from shop_goods_detail where goods_id=$id");
         if($list){
-            $info['info']=$list;
+            $info['info'] = $list;
+            $info['desc'] = $desc;
+            $info['detail'] = $detail;
         }else{
             $info['info']=array();
         }
