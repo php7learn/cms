@@ -100,10 +100,14 @@ class apiCtrl extends base
         $info = $obj->select_one("shop_goods_main","id=$id");
 //         print_r($info);
         $condition = array("where"=>"goods_id=$id","order"=>"desc_id asc");
+        $condition_desc = array("where"=>"goods_id=$id");
+        $condition_detail = array("where"=>"goods_id=$id");
 
         $list = $obj->select("shop_goods_desc",$condition);
-        $desc = $obj->select("shop_goods_desc",$condition);
-        $detail = $obj->select("shop_goods_detail",$condition);
+        $desc = $obj->get_array("select * from shop_goods_desc where goods_id = $id");
+        $detail = $obj->get_array("select * from shop_goods_detail where goods_id = $id");
+//        $desc = $obj->select("shop_goods_desc",$condition_desc);
+//        $detail = $obj->select("shop_goods_detail",$condition_detail);
         if($list){
             $info['info'] = $list;
             $info['desc'] = $desc;

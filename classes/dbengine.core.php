@@ -102,9 +102,17 @@ class dbengine{
 
 	function get_array($sql){
         $res = $this->link->query($sql);
-        $num=$res->num_rows;
+        if($res){
+            while ($row = $res->fetch_assoc()) {
+                $result[]=$row;
+            }
+            $num=$res->num_rows;
+        }else{
+            echo $this->link->error;
+            return false;
+        }
         if($num){
-            return $result = $res->fetch_all();
+            return $result;
         }else{
             return false;
         }
